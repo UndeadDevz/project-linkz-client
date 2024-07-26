@@ -1,7 +1,8 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { ILinkProps, useEditorContext } from '../context/EditorContext'
 
-export function SortableItem(props: any) {
+export function SortableItem(props: ILinkProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: props.id })
 
@@ -9,13 +10,13 @@ export function SortableItem(props: any) {
     transform: CSS.Transform.toString(transform),
     transition
   }
-
+  const { deleteLink } = useEditorContext()
   return (
     <div
       ref={setNodeRef}
       style={style}
       {...attributes}
-      className='w-full h-40 bg-white rounded-xl shadow-sm shadow-gray-400 flex overflow-hidden'
+      className='w-full xl:h-20 h-40 my-4 bg-white rounded-xl shadow-sm shadow-gray-400 flex overflow-hidden'
     >
       <div className='w-20 flex justify-center items-center ' {...listeners}>
         <svg
@@ -52,6 +53,7 @@ export function SortableItem(props: any) {
           fill='none'
           strokeLinecap='round'
           strokeLinejoin='round'
+          onClick={() => deleteLink(props.id)}
         >
           <path stroke='none' d='M0 0h24v24H0z' fill='none' />
           <path d='M4 7l16 0' />
