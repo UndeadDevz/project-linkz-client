@@ -7,7 +7,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <div className='bg-black h-full w-full'>Hello world!</div>
+      element: (
+        <div className='bg-gray-600 h-screen w-full text-white'>
+          Hello world!
+        </div>
+      )
     },
     {
       path: "/editor",
