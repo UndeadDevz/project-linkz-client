@@ -52,7 +52,7 @@ export const MiddleSection = () => {
         >
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
             {items.map((item) => (
-              <SortableItem key={item.id} id={item.id} />
+              <SortableItem key={item.id} {...item} />
             ))}
           </SortableContext>
         </DndContext>
