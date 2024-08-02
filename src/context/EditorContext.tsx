@@ -1,6 +1,7 @@
 import { UniqueIdentifier } from '@dnd-kit/core'
 import { nanoid } from 'nanoid/non-secure'
 import { createContext, useContext, useState } from 'react'
+import { validateUrl } from '../utils/validateUrl'
 
 const EditorContext = createContext<IEditorContext>({
   items: [],
@@ -11,7 +12,7 @@ const EditorContext = createContext<IEditorContext>({
 interface IEditorContext {
   items: ILinkProps[]
   setSetItems: (value: ILinkProps[]) => void
-  addLink: () => void
+  addLink: (url: string) => void
   deleteLink: (value: UniqueIdentifier) => void
 }
 
@@ -24,8 +25,11 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const setSetItems = (value: ILinkProps[]) => {
     setItems(value)
   }
-  const addLink = () => {
-    setItems((old) => [...old, { id: nanoid() }])
+  const addLink = (url: string) => {
+    setItems((old) => [
+      ...old,
+      { id: nanoid(), url: validateUrl(url), name: url, enabled: true }
+    ])
   }
   const deleteLink = (id: UniqueIdentifier) => {
     setItems((old) => {

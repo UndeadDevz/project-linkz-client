@@ -16,9 +16,10 @@ import {
   useSensors
 } from '@dnd-kit/core'
 import { ILinkProps, useEditorContext } from '../context/EditorContext'
+import { AddLink } from './AddLink'
 
 export const MiddleSection = () => {
-  const { items, setSetItems, addLink } = useEditorContext()
+  const { items, setSetItems } = useEditorContext()
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
 
@@ -37,13 +38,8 @@ export const MiddleSection = () => {
     })
   )
   return (
-    <div className=' p-2 flex flex-col gap-4 max-w-[700px] w-full'>
-      <div
-        onClick={addLink}
-        className='w-full h-16 text-xl bg-red-700  rounded-full text-center text-white justify-center flex items-center'
-      >
-        + add link
-      </div>
+    <div className=' p-2 flex flex-col gap-4 max-w-[700px] w-full relative'>
+      <AddLink />
       <div className='grow overflow-auto w-full'>
         <DndContext
           sensors={sensors}
