@@ -31,8 +31,6 @@ const ImageUploader: React.FC = () => {
 
       const result: UploadResponse = await response.json()
 
-      console.log("result", result)
-
       if (result.success) {
         setImageUrl(result.data.link)
       } else {
