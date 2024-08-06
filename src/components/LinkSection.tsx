@@ -5,7 +5,7 @@ import {
   verticalListSortingStrategy
 } from '@dnd-kit/sortable'
 
-import { SortableItem } from '../components/SortableItem'
+import { SortableItem } from './SortableItem'
 import {
   closestCenter,
   DndContext,
@@ -18,7 +18,7 @@ import {
 import { ILinkProps, useEditorContext } from '../context/EditorContext'
 import { AddLink } from './AddLink'
 
-export const MiddleSection = () => {
+export const LinkSection = () => {
   const { items, setSetItems } = useEditorContext()
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
