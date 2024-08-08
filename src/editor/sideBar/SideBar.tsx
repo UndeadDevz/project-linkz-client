@@ -1,9 +1,14 @@
-import { useState } from "react";
 import { FaList } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 
-export const SideBar = () => {
+export const SideBar = ({
+  selected,
+  setSelected
+}: {
+  selected: string;
+  setSelected: (prev: string) => void;
+}) => {
   const listItems: { name: string; label: string; icon: any }[] = [
     {
       name: "links",
@@ -21,8 +26,6 @@ export const SideBar = () => {
       icon: <FaGear />
     }
   ];
-
-  const [selected, setSelected] = useState("links");
 
   const handleSelect = (name: string) => {
     setSelected(name);
