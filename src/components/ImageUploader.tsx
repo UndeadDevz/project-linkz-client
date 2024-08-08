@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import Cookies from 'js-cookie'
 interface UploadResponse {
   data: {
     link: string
@@ -14,11 +14,9 @@ const ImageUploader: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
 
   const uploadImage = async (file: File) => {
-
     const formData = new FormData()
 
     formData.append('image', file)
-    formData.append('user_id', "669ebd8ab02ecf5d52e7aa50")
 
     try {
       setLoading(true)
@@ -26,6 +24,9 @@ const ImageUploader: React.FC = () => {
 
       const response = await fetch('http://localhost:3000/image/upload', {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${Cookies.get('authToken')}`
+        },
         body: formData
       })
 
