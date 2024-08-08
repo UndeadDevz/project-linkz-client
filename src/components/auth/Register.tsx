@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MdOutlineEmail, MdOutlineLock } from "react-icons/md";
-import { register } from "../../services/loginService";
+import { getUser, register } from "../../services/loginService";
 
 interface Props {
   setLogged: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,16 +18,37 @@ export const Register = ({ setLogged }: Props) => {
     password: "",
     username: ""
   });
+
+  const [createdResponse, setCreatedResponse] = useState({
+    message: "",
+    color: ""
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    setCreatedResponse({
+      message: "",
+      color: ""
+    });
     setRegisterInputs((prevInputs) => ({
       ...prevInputs,
       [name]: value
     }));
   };
 
-  const handleRegister = () => {
-    const response = register(registerInputs);
+  const handleRegister = async () => {
+    const response = await register(registerInputs);
+    if (response.username) {
+      setCreatedResponse({
+        message: "User created succefully",
+        color: "text-green-500"
+      });
+    } else {
+      setCreatedResponse({
+        message: "Error while creating user",
+        color: "text-red-500"
+      });
+    }
     console.log("response", response);
   };
   return (
@@ -83,6 +104,13 @@ export const Register = ({ setLogged }: Props) => {
         >
           Register
         </button>
+        {createdResponse.message && (
+          <div
+            className={`flex items-center justify-center p-2 ${createdResponse.color}`}
+          >
+            {createdResponse.message}
+          </div>
+        )}
       </div>
       <div className='flex flex-col'>
         <div>Already registered?</div>

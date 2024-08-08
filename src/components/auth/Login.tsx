@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { MdOutlineEmail, MdOutlineLock } from "react-icons/md";
+import { login } from "../../services/loginService";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   setLogged: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,10 +14,18 @@ interface LoginInputs {
 }
 
 export const Login = ({ setLogged }: Props) => {
+  const navigate = useNavigate();
+
   const [loginInputs, setLoginInputs] = useState<LoginInputs>({
     email: "",
     password: ""
   });
+
+  const [loggedResponse, setLoggedResponse] = useState({
+    message: "",
+    color: ""
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLoginInputs((prevInputs) => ({
@@ -23,8 +34,29 @@ export const Login = ({ setLogged }: Props) => {
     }));
   };
 
-  const handleLogin = () => {
-    console.log(loginInputs);
+  const handleLogin = async () => {
+    console.log("handleLogin");
+    const response = await login(loginInputs);
+    if (response.message === "Login Successful") {
+      setLoggedResponse({
+        message: "Login successful",
+        color: "text-green-500"
+      });
+      Cookies.set("authToken", response.access_token, {
+        expires: 7,
+        secure: true,
+        sameSite: "Strict"
+      });
+      setTimeout(() => {
+        navigate("/editor");
+      }, 1000);
+    } else {
+      setLoggedResponse({
+        message: "Wrong mail or password",
+        color: "text-red-500"
+      });
+    }
+    console.log("response", response);
   };
 
   return (
@@ -66,6 +98,13 @@ export const Login = ({ setLogged }: Props) => {
         >
           Login
         </button>
+        {loggedResponse.message && (
+          <div
+            className={`flex items-center justify-center p-2 ${loggedResponse.color}`}
+          >
+            {loggedResponse.message}
+          </div>
+        )}
       </div>
       <div className='flex flex-col'>
         <div>Want to sign up?</div>
