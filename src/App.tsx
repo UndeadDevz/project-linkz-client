@@ -1,6 +1,7 @@
-import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Editor } from './editor/Editor'
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Editor } from "./editor/Editor";
+import { Authentication } from "./components/Authentication";
 
 function App() {
   const router = createBrowserRouter([
@@ -11,6 +12,10 @@ function App() {
     {
       path: '/editor',
       element: <Editor />
+    },
+    {
+      path: "/auth",
+      element: <Authentication />
     }
   ])
 
