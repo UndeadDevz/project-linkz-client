@@ -1,56 +1,56 @@
-import { useState } from "react";
-import { MdOutlineEmail, MdOutlineLock } from "react-icons/md";
-import { getUser, register } from "../../services/loginService";
+import { useState } from 'react'
+import { MdOutlineEmail, MdOutlineLock } from 'react-icons/md'
+import { register } from '../../services/loginService'
 
 interface Props {
-  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface RegisterInputs {
-  email: string;
-  password: string;
-  username: string;
+  email: string
+  password: string
+  username: string
 }
 
 export const Register = ({ setLogged }: Props) => {
   const [registerInputs, setRegisterInputs] = useState<RegisterInputs>({
-    email: "",
-    password: "",
-    username: ""
-  });
+    email: '',
+    password: '',
+    username: ''
+  })
 
   const [createdResponse, setCreatedResponse] = useState({
-    message: "",
-    color: ""
-  });
+    message: '',
+    color: ''
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setCreatedResponse({
-      message: "",
-      color: ""
-    });
+      message: '',
+      color: ''
+    })
     setRegisterInputs((prevInputs) => ({
       ...prevInputs,
       [name]: value
-    }));
-  };
+    }))
+  }
 
   const handleRegister = async () => {
-    const response = await register(registerInputs);
+    const response = await register(registerInputs)
     if (response.username) {
       setCreatedResponse({
-        message: "User created succefully",
-        color: "text-green-500"
-      });
+        message: 'User created succefully',
+        color: 'text-green-500'
+      })
     } else {
       setCreatedResponse({
-        message: "Error while creating user",
-        color: "text-red-500"
-      });
+        message: 'Error while creating user',
+        color: 'text-red-500'
+      })
     }
-    console.log("response", response);
-  };
+    console.log('response', response)
+  }
   return (
     <div className='h-5/6 shadow rounded-lg w-1/3 bg-white p-7 flex flex-col items-center justify-between'>
       <div className='flex flex-col gap-3 pt-10 w-4/6'>
@@ -122,5 +122,5 @@ export const Register = ({ setLogged }: Props) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
