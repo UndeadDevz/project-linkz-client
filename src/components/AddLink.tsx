@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useEditorContext } from '../context/EditorContext'
+import { useEditorContext } from '../hooks/useEditorContext'
 
 export const AddLink = () => {
   const { addLink } = useEditorContext()

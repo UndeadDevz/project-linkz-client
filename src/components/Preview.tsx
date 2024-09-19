@@ -1,5 +1,4 @@
-import { useEditorContext } from '../context/EditorContext'
-
+import { useEditorContext } from '../hooks/useEditorContext'
 import { LinkPreview } from './LinkPreview'
 
 export const Preview = () => {

@@ -1,4 +1,4 @@
-import { ILinkProps } from '../context/EditorContext'
+import { ILinkProps } from '../context/EditorProvider'
 import { useStyleContext } from '../context/StyleContext'
 
 export const LinkPreview = ({ item }: { item: ILinkProps }) => {

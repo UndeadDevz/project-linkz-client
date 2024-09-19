@@ -15,8 +15,10 @@ import {
   useSensor,
   useSensors
 } from '@dnd-kit/core'
-import { ILinkProps, useEditorContext } from '../context/EditorContext'
+
 import { AddLink } from './AddLink'
+import { useEditorContext } from '../hooks/useEditorContext'
+import { ILinkProps } from '../context/EditorProvider'
 
 export const LinkSection = () => {
   const { items, setSetItems } = useEditorContext()

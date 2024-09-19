@@ -1,11 +1,12 @@
 import { SideBar } from './sideBar/SideBar'
 
 import { LinkSection } from '../components/LinkSection'
-import { EditorProvider } from '../context/EditorContext'
+
 import { Preview } from '../components/Preview'
 import { useState } from 'react'
 import { AppearanceSection } from '../components/AppearanceSection'
 import { StyleProvider } from '../context/StyleContext'
+import { EditorProvider } from '../context/EditorProvider'
 
 export const Editor = () => {
   const [selected, setSelected] = useState('links')

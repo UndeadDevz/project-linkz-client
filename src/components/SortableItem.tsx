@@ -1,10 +1,12 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { ILinkProps, useEditorContext } from '../context/EditorContext'
+
 import { validateUrl } from '../utils/validateUrl'
 import ImageUploader from './ImageUploader'
 import { LuTrash } from 'react-icons/lu'
 import { GoPencil } from 'react-icons/go'
+import { ILinkProps } from '../context/EditorProvider'
+import { useEditorContext } from '../hooks/useEditorContext'
 
 export function SortableItem(props: ILinkProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
