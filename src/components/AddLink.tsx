@@ -22,7 +22,7 @@ export const AddLink = () => {
         + add link
       </div>
       {showModal && (
-        <div className='absolute w-full h-full bg-gray-100 p-8 z-10'>
+        <div className='absolute w-full h-full top-0 left-0 bg-gray-100 p-8 z-10'>
           <div
             className='w-full text-right text-white'
             onClick={() => setShowModal(false)}
