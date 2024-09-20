@@ -1,6 +1,10 @@
 import { useEditorContext } from '../hooks/useEditorContext'
+import { HeaderPreview } from './HeaderPreview'
 import { LinkPreview } from './LinkPreview'
-
+const componentMap = {
+  link: LinkPreview,
+  header: HeaderPreview
+}
 export const Preview = () => {
   const { items } = useEditorContext()
 
@@ -9,9 +13,14 @@ export const Preview = () => {
       <div className='overflow-auto scrollbar-none h-full w-full'>
         {items
           .filter((el) => el.enabled)
-          .map((item) => (
-            <LinkPreview item={item} key={item.id} />
-          ))}
+          .map((item) => {
+            const PreviewComponent = componentMap[item.type]
+
+            if (!PreviewComponent) {
+              return null // Maneja un caso por defecto si es necesario
+            }
+            return <PreviewComponent item={item} key={item.id} />
+          })}
       </div>
     </div>
   )

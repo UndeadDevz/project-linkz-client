@@ -13,19 +13,40 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const setSetItems = (value: ILinkProps[]) => {
     setItems(value)
   }
+  // TODO type should be a ENUM
+  const addHeader = (header: string) => {
+    setItems((old) => [
+      ...old,
+      { id: nanoid(), name: header, enabled: true, type: 'header' }
+    ])
+  }
   const addLink = (url: string) => {
     setItems((old) => [
       ...old,
-      { id: nanoid(), url: validateUrl(url), name: url, enabled: true }
+      {
+        id: nanoid(),
+        url: validateUrl(url),
+        name: url,
+        enabled: true,
+        type: 'link'
+      }
     ])
   }
-  const deleteLink = (id: UniqueIdentifier) => {
+  const deleteElement = (id: UniqueIdentifier) => {
     setItems((old) => {
       return old.filter((el) => el.id !== id)
     })
   }
   return (
-    <EditorContext.Provider value={{ items, setSetItems, addLink, deleteLink }}>
+    <EditorContext.Provider
+      value={{
+        items,
+        setSetItems,
+        addLink,
+        deleteElement,
+        addHeader
+      }}
+    >
       {children}
     </EditorContext.Provider>
   )

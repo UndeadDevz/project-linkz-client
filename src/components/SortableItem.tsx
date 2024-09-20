@@ -16,7 +16,8 @@ export function SortableItem(props: ILinkProps) {
     transform: CSS.Transform.toString(transform),
     transition
   }
-  const { deleteLink, setSetItems, items } = useEditorContext()
+  const { deleteElement, setSetItems, items } = useEditorContext()
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const key = e.target.id
     const value = e.target.value
@@ -88,21 +89,24 @@ export function SortableItem(props: ILinkProps) {
             <GoPencil />
           </span>
         </label>
-
-        <label className='flex'>
-          <input
-            value={props.url}
-            id='url'
-            onChange={handleChange}
-            type='url'
-            onBlur={handleBlur}
-            className='peer '
-          />
-          <span className=' peer-focus:hidden'>
-            <GoPencil />
-          </span>
-        </label>
-        <ImageUploader />
+        {props.type === 'link' && (
+          <>
+            <label className='flex'>
+              <input
+                value={props.url}
+                id='url'
+                onChange={handleChange}
+                type='url'
+                onBlur={handleBlur}
+                className='peer '
+              />
+              <span className=' peer-focus:hidden'>
+                <GoPencil />
+              </span>
+            </label>
+            <ImageUploader />
+          </>
+        )}
       </div>
       <div className=' w-20 flex flex-col justify-center items-center gap-4'>
         <label className='inline-flex items-center cursor-pointer'>
@@ -115,7 +119,7 @@ export function SortableItem(props: ILinkProps) {
           />
           <div className="relative w-7 h-4 bg-gray-200 peer-focus:outline-none peer-focus:ring-1 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
         </label>
-        <LuTrash onClick={() => deleteLink(props.id)} />
+        <LuTrash onClick={() => deleteElement(props.id)} />
       </div>
     </div>
   )

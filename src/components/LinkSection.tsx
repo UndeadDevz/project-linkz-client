@@ -17,6 +17,7 @@ import {
 } from '@dnd-kit/core'
 
 import { AddLink } from './AddLink'
+import { AddHeader } from './AddHeader'
 import { useEditorContext } from '../hooks/useEditorContext'
 import { ILinkProps } from '../context/EditorProvider'
 
@@ -42,6 +43,9 @@ export const LinkSection = () => {
   return (
     <div className=' p-2 flex flex-col gap-4 max-w-[700px] w-full relative'>
       <AddLink />
+      <div>
+        <AddHeader />
+      </div>
       <div className='grow overflow-auto w-full'>
         <DndContext
           sensors={sensors}

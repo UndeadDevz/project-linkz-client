@@ -21,7 +21,7 @@ interface IAppearance {
 export const StyleProvider = ({ children }: { children: JSX.Element }) => {
   const [appearance, setAppearance] = useState<IAppearance>({
     linkStyle: { backgroundColor: '#FFFFFF' }, // TODO add mock for each one
-    headerStyle: { backgroundColor: '#FFFFFF' },
+    headerStyle: {},
     titleStyle: { backgroundColor: '#FFFFFF' }
   })
 
