@@ -1,25 +1,27 @@
-import { UniqueIdentifier } from '@dnd-kit/core'
-import { nanoid } from 'nanoid'
-import { useState } from 'react'
-import { validateUrl } from '../utils/validateUrl'
-import { EditorContext } from './EditorContext'
+import { UniqueIdentifier } from "@dnd-kit/core";
+import { nanoid } from "nanoid";
+import { useState } from "react";
+import { validateUrl } from "../utils/validateUrl";
+import { EditorContext } from "./EditorContext";
 
 export interface ILinkProps {
-  id: UniqueIdentifier
+  id: UniqueIdentifier;
 }
 
 export const EditorProvider = ({ children }: { children: JSX.Element }) => {
-  const [items, setItems] = useState<ILinkProps[]>([])
+  const [items, setItems] = useState<ILinkProps[]>([]);
   const setSetItems = (value: ILinkProps[]) => {
-    setItems(value)
-  }
+    setItems(value);
+  };
+
   // TODO type should be a ENUM
   const addHeader = (header: string) => {
     setItems((old) => [
       ...old,
-      { id: nanoid(), name: header, enabled: true, type: 'header' }
-    ])
-  }
+      { id: nanoid(), name: header, enabled: true, type: "header" },
+    ]);
+  };
+
   const addLink = (url: string) => {
     setItems((old) => [
       ...old,
@@ -28,15 +30,17 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         url: validateUrl(url),
         name: url,
         enabled: true,
-        type: 'link'
-      }
-    ])
-  }
+        type: "link",
+      },
+    ]);
+  };
+
   const deleteElement = (id: UniqueIdentifier) => {
     setItems((old) => {
-      return old.filter((el) => el.id !== id)
-    })
-  }
+      return old.filter((el) => el.id !== id);
+    });
+  };
+
   return (
     <EditorContext.Provider
       value={{
@@ -44,10 +48,10 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         setSetItems,
         addLink,
         deleteElement,
-        addHeader
+        addHeader,
       }}
     >
       {children}
     </EditorContext.Provider>
-  )
-}
+  );
+};
