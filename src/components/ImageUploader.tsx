@@ -12,7 +12,7 @@ const ImageUploader: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
-
+  const baseUrl = import.meta.env.VITE_API_URL
   const uploadImage = async (file: File) => {
     const formData = new FormData()
 
@@ -22,7 +22,7 @@ const ImageUploader: React.FC = () => {
       setLoading(true)
       setError(null)
 
-      const response = await fetch('http://localhost:3000/image/upload', {
+      const response = await fetch(`${baseUrl}/image/upload`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${Cookies.get('authToken')}`
@@ -32,8 +32,8 @@ const ImageUploader: React.FC = () => {
 
       const result: UploadResponse = await response.json()
 
-      if (result.success) {
-        setImageUrl(result.data.link)
+      if (result.url) {
+        setImageUrl(result.url)
       } else {
         setError('Error uploading image')
       }
