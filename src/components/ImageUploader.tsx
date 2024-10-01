@@ -1,61 +1,70 @@
-import React, { useState } from 'react'
-import Cookies from 'js-cookie'
+import React, { useState } from "react";
+import Cookies from "js-cookie";
 interface UploadResponse {
   data: {
-    link: string
-  }
-  success: boolean
-  status: number
+    link: string;
+  };
+  success: boolean;
+  status: number;
 }
 
 const ImageUploader: React.FC = () => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
-  const baseUrl = import.meta.env.VITE_API_URL
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const baseUrl = import.meta.env.VITE_API_URL;
   const uploadImage = async (file: File) => {
-    const formData = new FormData()
+    const formData = new FormData();
 
-    formData.append('image', file)
+    formData.append("image", file);
 
     try {
-      setLoading(true)
-      setError(null)
+      setLoading(true);
+      setError(null);
 
       const response = await fetch(`${baseUrl}/image/upload`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${Cookies.get('authToken')}`
+          Authorization: `Bearer ${Cookies.get("authToken")}`
         },
         body: formData
-      })
+      });
 
-      const result: UploadResponse = await response.json()
+      const result: UploadResponse = await response.json();
 
       if (result.url) {
-        setImageUrl(result.url)
+        setImageUrl(result.url);
       } else {
-        setError('Error uploading image')
+        setError("Error uploading image");
       }
     } catch (err) {
-      setError('Error uploading image')
+      setError("Error uploading image");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
     if (file) {
-      uploadImage(file)
+      uploadImage(file);
     }
-  }
+  };
 
   return (
-    <div>
-      <input type='file' accept='image/*' onChange={handleFileChange} />
+    <div className='flex flex-row gap-2 items-center'>
+      <input
+        type='file'
+        accept='image/*'
+        id='file-input'
+        onChange={handleFileChange}
+        className='hidden' // Hides the default file input
+      />
+      <label htmlFor='file-input' className='custom-file-upload'>
+        Upload Image
+      </label>
       {loading && <p>Uploading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {imageUrl && (
         <div>
           <p>Image uploaded successfully:</p>
@@ -65,12 +74,12 @@ const ImageUploader: React.FC = () => {
           <img
             src={imageUrl}
             alt='Uploaded'
-            style={{ maxWidth: '300px', marginTop: '10px' }}
+            style={{ maxWidth: "300px", marginTop: "10px" }}
           />
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ImageUploader
+export default ImageUploader;

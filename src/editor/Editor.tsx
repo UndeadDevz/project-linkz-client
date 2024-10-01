@@ -21,7 +21,7 @@ export const Editor = () => {
               {selected === "links" && <LinkSection />}
               {selected === "appearance" && <AppearanceSection />}
             </div>
-            <div className='w-2/6 xl:max-w-[570px] max-w-[400px]  items-center justify-center flex  border-l border-gray-300'>
+            <div className='w-2/6 xl:max-w-[670px] max-w-[400px]  items-center justify-center flex  border-l border-gray-300'>
               <Preview />
             </div>
           </div>
