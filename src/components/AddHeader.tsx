@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import { useEditorContext } from '../hooks/useEditorContext'
+import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { useEditorContext } from "../hooks/useEditorContext";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
-export const AddHeader = () => {
-  const { addHeader } = useEditorContext()
-  const [showModal, setShowModal] = useState(false)
+interface Props {
+  showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+  setShowLink: Dispatch<SetStateAction<boolean>>;
+}
+
+export const AddHeader = ({ showModal, setShowModal, setShowLink }: Props) => {
+  const { addHeader } = useEditorContext();
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const header = new FormData(e.target as HTMLFormElement)
+    e.preventDefault();
+    const header = new FormData(e.target as HTMLFormElement);
 
-    addHeader(header.get('header') as string)
-    setShowModal(false)
-  }
+    addHeader(header.get("header") as string);
+    setShowModal(false);
+  };
+
+  const divRef = useRef(null);
+
+  useOnClickOutside(divRef, () => setShowModal(false));
 
   return (
     <>
       <div
-        onClick={() => setShowModal(true)}
-        className='w-fit h-fit p-1 text-md bg-blue-700  rounded-full text-center text-white justify-center flex items-center cursor-pointer'
+        onClick={() => {
+          setShowModal(true), setShowLink(false);
+        }}
+        className='w-fit h-fit p-2 text-md bg-blue-700 hover:bg-blue-800 rounded-lg text-center text-white justify-center flex items-center cursor-pointer'
       >
         + Header
       </div>
       {showModal && (
-        <div className='absolute w-96 h-40 rounded-sm top-20 left-1/2 -translate-x-1/2 bg-gray-100 p-8 z-10 shadow-sm shadow-black'>
+        <div
+          ref={divRef}
+          className='absolute w-96 h-40 top-[20%] left-1/2 -translate-x-1/2 bg-gray-100 px-8 py-4 z-10 shadow-sm shadow-black rounded-lg'
+        >
           <div
             className='w-full text-right text-red-500 cursor-pointer'
             onClick={() => setShowModal(false)}
           >
             x
           </div>
-          <h2>Enter Header</h2>
+          <h2 className='pb-2'>Enter Header</h2>
           <form onSubmit={handleSubmit} className='flex gap-2'>
             <input
               id='header'
@@ -47,5 +62,5 @@ export const AddHeader = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};

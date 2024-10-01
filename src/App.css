@@ -3,5 +3,30 @@
 @tailwind utilities;
 
 .scrollbar-none {
-    scrollbar-width: none;
+  scrollbar-width: none;
+}
+
+.file-upload {
+  position: relative;
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid #3b82f6;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-file-upload:hover {
+  background-color: #456fa0;
+  border-color: #456fa0;
 }
