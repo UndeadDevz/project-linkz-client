@@ -25,6 +25,7 @@ export function SortableItem(props: ILinkProps) {
 
     const input = key === "name" ? nameRef.current : urlRef.current;
     if (input) {
+      //@ts-ignore
       input.style.width = `${input.scrollWidth}px`;
     }
 

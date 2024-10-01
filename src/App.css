@@ -30,3 +30,29 @@
   background-color: #456fa0;
   border-color: #456fa0;
 }
+.select-custom {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem;
+  appearance: none;
+  background-color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.select-custom:hover {
+  border-color: #aaa;
+}
+
+.select-container {
+  position: relative;
+}
+
+.select-container::after {
+  content: "▽";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}

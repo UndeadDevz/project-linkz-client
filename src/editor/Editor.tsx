@@ -12,16 +12,18 @@ export const Editor = () => {
   return (
     <EditorProvider>
       <StyleProvider>
-        <div className="w-full h-screen flex flex-row bg-gray-200">
-          <div className="w-1/6 p-2 max-w-[400px] flex items-center justify-center py-4">
+        <div className='w-full h-screen flex flex-col bg-gray-200'>
+          <div className='w-full p-2 flex items-center justify-center py-4'>
             <SideBar selected={selected} setSelected={setSelected} />
           </div>
-          <div className="grow flex justify-center pt-8">
-            {selected === "links" && <LinkSection />}
-            {selected === "appearance" && <AppearanceSection />}
-          </div>
-          <div className="w-2/6 xl:max-w-[570px] max-w-[400px]  items-center justify-center flex  border-l border-gray-300">
-            <Preview />
+          <div className='flex flex-row h-full'>
+            <div className='grow flex justify-center pt-8'>
+              {selected === "links" && <LinkSection />}
+              {selected === "appearance" && <AppearanceSection />}
+            </div>
+            <div className='w-2/6 xl:max-w-[570px] max-w-[400px]  items-center justify-center flex  border-l border-gray-300'>
+              <Preview />
+            </div>
           </div>
         </div>
       </StyleProvider>
