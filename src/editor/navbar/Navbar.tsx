@@ -1,6 +1,7 @@
 import { FaList } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
+import { SaveButton } from "../../components/navbar/SaveButton";
 
 export const Navbar = ({
   selected,
@@ -62,9 +63,7 @@ export const Navbar = ({
           );
         })}
       </div>
-      <button className="bg-blue-600 text-white text-lg h-full px-4 rounded-md">
-        Save
-      </button>
+      <SaveButton />
     </div>
   );
 };
