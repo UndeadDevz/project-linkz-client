@@ -26,7 +26,6 @@ const ImageUploader = ({ index }: Props) => {
     try {
       setLoading(true);
       setError(null);
-      console.log("data", formData.get("image"));
       const response = await fetch(`${baseUrl}/image/upload`, {
         method: "POST",
         headers: {

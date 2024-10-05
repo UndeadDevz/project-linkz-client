@@ -11,6 +11,7 @@ export interface ILinkProps {
   name?: string;
   enabled?: boolean;
   url?: string;
+  image?: string;
 }
 
 export const EditorProvider = ({ children }: { children: JSX.Element }) => {
@@ -24,7 +25,7 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const addHeader = (header: string) => {
     setItems((old) => [
       ...old,
-      { id: nanoid(), name: header, enabled: true, type: "header" }
+      { id: nanoid(), name: header, enabled: true, type: "header" },
     ]);
   };
 
@@ -40,8 +41,8 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         url: validateUrl(url),
         name: url,
         enabled: true,
-        type: "link"
-      }
+        type: "link",
+      },
     ]);
   };
 
@@ -60,7 +61,7 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         addLink,
         deleteElement,
         addHeader,
-        addTitle
+        addTitle,
       }}
     >
       {children}

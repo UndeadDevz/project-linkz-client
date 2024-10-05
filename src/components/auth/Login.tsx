@@ -35,7 +35,6 @@ export const Login = ({ setLogged }: Props) => {
   };
 
   const handleLogin = async () => {
-    console.log("handleLogin");
     const response = await login(loginInputs);
     if (response.message === "Login Successful") {
       setLoggedResponse({
@@ -56,7 +55,6 @@ export const Login = ({ setLogged }: Props) => {
         color: "text-red-500",
       });
     }
-    console.log("response", response);
   };
 
   return (

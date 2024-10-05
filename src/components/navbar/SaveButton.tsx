@@ -15,18 +15,17 @@ export const SaveButton = () => {
   const { ...rest } = appearance;
 
   const handleUpdateTemplate = async () => {
-    console.log("rest", rest);
     await updateTemplate("66feccbbf9719079303b50fa", {
       items: parsedItems,
       title,
-      ...rest
+      ...rest,
     });
   };
 
   return (
     <button
       onClick={handleUpdateTemplate}
-      className='bg-blue-600 text-white text-lg h-full px-4 rounded-md'
+      className="bg-blue-600 text-white text-lg h-full px-4 rounded-md"
     >
       Save
     </button>
