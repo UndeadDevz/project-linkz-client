@@ -60,6 +60,7 @@ const ImageUploader = ({ index }: Props) => {
   };
 
   const setImageinElement = async (url: string) => {
+    console.log("index", index);
     const response = await fetch(`${baseUrl}/image/upload`, {
       method: "PUT",
       headers: {
