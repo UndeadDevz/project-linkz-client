@@ -100,7 +100,7 @@ export function SortableItem(props: ILinkProps) {
           props.type === "link" ? "" : "justify-center"
         }`}
       >
-        <label className='flex' onClick={() => console.log("key", props.index)}>
+        <label className='flex'>
           <input
             ref={nameRef}
             value={props.name}
@@ -128,7 +128,7 @@ export function SortableItem(props: ILinkProps) {
                 <GoPencil />
               </span>
             </label>
-            <ImageUploader index={props.index} />
+            <ImageUploader id={props.id} />
           </>
         )}
       </div>

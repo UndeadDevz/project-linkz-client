@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useEditorContext } from "../hooks/useEditorContext";
+import { ILinkProps } from "../context/EditorProvider";
 interface UploadResponse {
   data: {
     link: string;
@@ -10,15 +12,18 @@ interface UploadResponse {
 }
 
 interface Props {
-  index: number | undefined;
+  id: any;
 }
 
-const ImageUploader = ({ index }: Props) => {
+const ImageUploader = ({ id }: Props) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const baseUrl = import.meta.env.VITE_API_URL;
+  const { items, setSetItems } = useEditorContext();
+
   const uploadImage = async (file: File) => {
+    console.log("upload", id);
     const formData = new FormData();
 
     formData.append("image", file);
@@ -37,7 +42,7 @@ const ImageUploader = ({ index }: Props) => {
       const result: UploadResponse = await response.json();
 
       if (result.url) {
-        setImageinElement(result.url);
+        handleChange(result.url);
         setImageUrl(result.url);
       } else {
         setError("Error uploading image");
@@ -56,22 +61,15 @@ const ImageUploader = ({ index }: Props) => {
     if (file) {
       uploadImage(file);
     }
+    console.log("filechange", id);
   };
 
-  const setImageinElement = async (url: string) => {
-    console.log("index", index);
-    const response = await fetch(`${baseUrl}/image/upload`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("authToken")}`
-      },
-      body: JSON.stringify({
-        template_id: "66feccbbf9719079303b50fa",
-        index: index,
-        url: url
-      })
-    });
+  const handleChange = (imageUrl: string) => {
+    const editIndex = items.findIndex((el: ILinkProps) => el.id === id);
+
+    const modifiedItems = [...items];
+    modifiedItems[editIndex] = { ...modifiedItems[editIndex], image: imageUrl };
+    setSetItems(modifiedItems);
   };
 
   return (
@@ -79,11 +77,11 @@ const ImageUploader = ({ index }: Props) => {
       <input
         type='file'
         accept='image/*'
-        id='file-input'
+        id={id}
         onChange={handleFileChange}
-        className='hidden' // Hides the default file input
+        className='hidden'
       />
-      <label htmlFor='file-input' className='custom-file-upload'>
+      <label htmlFor={id} className='custom-file-upload'>
         Upload Image
       </label>
       {loading && <p>Uploading...</p>}

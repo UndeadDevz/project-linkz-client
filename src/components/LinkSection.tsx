@@ -2,7 +2,7 @@ import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
+  verticalListSortingStrategy
 } from "@dnd-kit/sortable";
 
 import { SortableItem } from "./SortableItem";
@@ -13,7 +13,7 @@ import {
   KeyboardSensor,
   PointerSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from "@dnd-kit/core";
 
 import { AddLink } from "./AddLink";
@@ -23,6 +23,7 @@ import { ILinkProps } from "../context/EditorProvider";
 import { useState } from "react";
 import { AddTitle } from "./AddTitle";
 import PhotoUploader from "./AddPhoto";
+import ImageUploader from "./ImageUploader";
 
 export const LinkSection = () => {
   const { items, setSetItems, title } = useEditorContext();
@@ -40,7 +41,7 @@ export const LinkSection = () => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
+      coordinateGetter: sortableKeyboardCoordinates
     })
   );
 
@@ -49,13 +50,13 @@ export const LinkSection = () => {
   const [showTitle, setShowTitle] = useState(false);
 
   return (
-    <div className=" p-2 flex flex-col gap-4 max-w-[700px] w-full relative">
+    <div className=' p-2 flex flex-col gap-4 max-w-[700px] w-full relative'>
       <AddLink
         showModal={showLink}
         setShowModal={setShowLink}
         setShowHeader={setShowHeader}
       />
-      <div className="flex flex-row gap-4">
+      <div className='flex flex-row gap-4'>
         <AddHeader
           showModal={showHeader}
           setShowModal={setShowHeader}
@@ -70,15 +71,17 @@ export const LinkSection = () => {
         {/* 
         <PhotoUploader /> */}
       </div>
-      <div className="grow overflow-auto w-full">
+      <div className='grow overflow-auto w-full'>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
-            {items.map((item, index) => (
-              <SortableItem key={index} index={index} {...item} />
+            {items.map((item) => (
+              <div>
+                <SortableItem key={item.id} {...item} />
+              </div>
             ))}
           </SortableContext>
         </DndContext>
