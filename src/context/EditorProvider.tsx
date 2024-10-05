@@ -6,6 +6,7 @@ import { EditorContext } from "./EditorContext";
 
 export interface ILinkProps {
   id: UniqueIdentifier;
+  index?: number;
   type?: string;
   name?: string;
   enabled?: boolean;

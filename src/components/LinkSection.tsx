@@ -80,8 +80,8 @@ export const LinkSection = () => {
           onDragEnd={handleDragEnd}
         >
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
-            {items.map((item) => (
-              <SortableItem key={item.id} {...item} />
+            {items.map((item, index) => (
+              <SortableItem key={index} index={index} {...item} />
             ))}
           </SortableContext>
         </DndContext>

@@ -9,7 +9,11 @@ interface UploadResponse {
   url?: string;
 }
 
-const ImageUploader: React.FC = () => {
+interface Props {
+  index: number | undefined;
+}
+
+const ImageUploader = ({ index }: Props) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -59,11 +63,12 @@ const ImageUploader: React.FC = () => {
     const response = await fetch(`${baseUrl}/image/upload`, {
       method: "PUT",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("authToken")}`
       },
       body: JSON.stringify({
         template_id: "66feccbbf9719079303b50fa",
-        index: 0,
+        index: index,
         url: url
       })
     });
