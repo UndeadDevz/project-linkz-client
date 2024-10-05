@@ -2,7 +2,7 @@ import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  verticalListSortingStrategy
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
 import { SortableItem } from "./SortableItem";
@@ -13,7 +13,7 @@ import {
   KeyboardSensor,
   PointerSensor,
   useSensor,
-  useSensors
+  useSensors,
 } from "@dnd-kit/core";
 
 import { AddLink } from "./AddLink";
@@ -40,7 +40,7 @@ export const LinkSection = () => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
+      coordinateGetter: sortableKeyboardCoordinates,
     })
   );
 
@@ -49,16 +49,13 @@ export const LinkSection = () => {
   const [showTitle, setShowTitle] = useState(false);
 
   return (
-    <div
-      className=' p-2 flex flex-col gap-4 max-w-[700px] w-full relative'
-      onClick={() => console.log(title)}
-    >
+    <div className=" p-2 flex flex-col gap-4 max-w-[700px] w-full relative">
       <AddLink
         showModal={showLink}
         setShowModal={setShowLink}
         setShowHeader={setShowHeader}
       />
-      <div className='flex flex-row gap-4'>
+      <div className="flex flex-row gap-4">
         <AddHeader
           showModal={showHeader}
           setShowModal={setShowHeader}
@@ -73,7 +70,7 @@ export const LinkSection = () => {
         {/* 
         <PhotoUploader /> */}
       </div>
-      <div className='grow overflow-auto w-full'>
+      <div className="grow overflow-auto w-full">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}

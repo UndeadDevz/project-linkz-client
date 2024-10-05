@@ -22,13 +22,12 @@ const ImageUploader: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log("data", formData.get("image"));
       const response = await fetch(`${baseUrl}/image/upload`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${Cookies.get("authToken")}`
+          Authorization: `Bearer ${Cookies.get("authToken")}`,
         },
-        body: formData
+        body: formData,
       });
 
       const result: UploadResponse = await response.json();
@@ -59,26 +58,26 @@ const ImageUploader: React.FC = () => {
     const response = await fetch(`${baseUrl}/image/upload`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${Cookies.get("authToken")}`
+        Authorization: `Bearer ${Cookies.get("authToken")}`,
       },
       body: JSON.stringify({
         template_id: "66feccbbf9719079303b50fa",
         index: 0,
-        url: url
-      })
+        url: url,
+      }),
     });
   };
 
   return (
-    <div className='flex flex-row gap-2 items-center'>
+    <div className="flex flex-row gap-2 items-center">
       <input
-        type='file'
-        accept='image/*'
-        id='file-input'
+        type="file"
+        accept="image/*"
+        id="file-input"
         onChange={handleFileChange}
-        className='hidden' // Hides the default file input
+        className="hidden" // Hides the default file input
       />
-      <label htmlFor='file-input' className='custom-file-upload'>
+      <label htmlFor="file-input" className="custom-file-upload">
         Upload Image
       </label>
       {loading && <p>Uploading...</p>}
@@ -86,7 +85,7 @@ const ImageUploader: React.FC = () => {
       {imageUrl && (
         <div>
           <p>Image uploaded successfully:</p>
-          <a href={imageUrl} target='_blank' rel='noopener noreferrer'>
+          <a href={imageUrl} target="_blank" rel="noopener noreferrer">
             {imageUrl}
           </a>
         </div>
