@@ -3,7 +3,7 @@ import { useEditorContext } from "../../hooks/useEditorContext";
 import { updateTemplate } from "../../services/template.service";
 
 export const SaveButton = () => {
-  const { items } = useEditorContext();
+  const { items, title } = useEditorContext();
   const { appearance } = useStyleContext();
 
   const parsedItems = items.map((el: any) => {
@@ -12,19 +12,21 @@ export const SaveButton = () => {
     return rest;
   });
 
-  const { titleStyle, ...rest } = appearance;
+  const { ...rest } = appearance;
 
   const handleUpdateTemplate = async () => {
-    await updateTemplate("66fb117f2a4aa0d98c0a0e1d", {
+    console.log("rest", rest);
+    await updateTemplate("66feccbbf9719079303b50fa", {
       items: parsedItems,
-      ...rest,
+      title,
+      ...rest
     });
   };
 
   return (
     <button
       onClick={handleUpdateTemplate}
-      className="bg-blue-600 text-white text-lg h-full px-4 rounded-md"
+      className='bg-blue-600 text-white text-lg h-full px-4 rounded-md'
     >
       Save
     </button>

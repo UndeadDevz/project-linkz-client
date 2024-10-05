@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const StyleContext = createContext<IStyleContext>({
   appearance: { linkStyle: {}, headerStyle: {}, titleStyle: {} },
   changeAppearance: () => {},
-  loadAppearanceFromBack: () => {},
+  loadAppearanceFromBack: () => {}
 });
 interface IStyleContext {
   appearance: IAppearance;
@@ -24,13 +24,13 @@ export const StyleProvider = ({ children }: { children: JSX.Element }) => {
   const [appearance, setAppearance] = useState<IAppearance>({
     linkStyle: { background: "#FFFFFF" }, // TODO add mock for each one
     headerStyle: {},
-    titleStyle: { background: "#FFFFFF" },
+    titleStyle: {}
   });
 
   const loadAppearanceFromBack = (style: any) => {
     setAppearance((prev) => ({
       ...prev,
-      ...style,
+      ...style
     }));
   };
 
@@ -41,7 +41,7 @@ export const StyleProvider = ({ children }: { children: JSX.Element }) => {
   ) => {
     setAppearance((prev) => ({
       ...prev,
-      [field]: { ...prev[field], [key]: value },
+      [field]: { ...prev[field], [key]: value }
     }));
   };
 

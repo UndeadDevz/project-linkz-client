@@ -9,7 +9,7 @@ interface UploadResponse {
   url?: string;
 }
 
-const ImageUploader: React.FC = () => {
+const PhotoUploader: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,19 +22,18 @@ const ImageUploader: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log("data", formData.get("image"));
-      const response = await fetch(`${baseUrl}/image/upload`, {
-        method: "POST",
+
+      const response = await fetch(`${baseUrl}/image/photo`, {
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${Cookies.get("authToken")}`
         },
-        body: formData
+        body: "66feccbbf9719079303b50fa"
       });
 
       const result: UploadResponse = await response.json();
 
       if (result.url) {
-        setImageinElement(result.url);
         setImageUrl(result.url);
       } else {
         setError("Error uploading image");
@@ -46,27 +45,11 @@ const ImageUploader: React.FC = () => {
     }
   };
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       uploadImage(file);
     }
-  };
-
-  const setImageinElement = async (url: string) => {
-    const response = await fetch(`${baseUrl}/image/upload`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${Cookies.get("authToken")}`
-      },
-      body: JSON.stringify({
-        template_id: "66feccbbf9719079303b50fa",
-        index: 0,
-        url: url
-      })
-    });
   };
 
   return (
@@ -89,10 +72,15 @@ const ImageUploader: React.FC = () => {
           <a href={imageUrl} target='_blank' rel='noopener noreferrer'>
             {imageUrl}
           </a>
+          <img
+            src={imageUrl}
+            alt='Uploaded'
+            style={{ maxWidth: "300px", marginTop: "10px" }}
+          />
         </div>
       )}
     </div>
   );
 };
 
-export default ImageUploader;
+export default PhotoUploader;

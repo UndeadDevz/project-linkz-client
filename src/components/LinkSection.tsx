@@ -21,9 +21,11 @@ import { AddHeader } from "./AddHeader";
 import { useEditorContext } from "../hooks/useEditorContext";
 import { ILinkProps } from "../context/EditorProvider";
 import { useState } from "react";
+import { AddTitle } from "./AddTitle";
+import PhotoUploader from "./AddPhoto";
 
 export const LinkSection = () => {
-  const { items, setSetItems } = useEditorContext();
+  const { items, setSetItems, title } = useEditorContext();
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
@@ -44,20 +46,32 @@ export const LinkSection = () => {
 
   const [showHeader, setShowHeader] = useState(false);
   const [showLink, setShowLink] = useState(false);
+  const [showTitle, setShowTitle] = useState(false);
 
   return (
-    <div className=' p-2 flex flex-col gap-4 max-w-[700px] w-full relative'>
+    <div
+      className=' p-2 flex flex-col gap-4 max-w-[700px] w-full relative'
+      onClick={() => console.log(title)}
+    >
       <AddLink
         showModal={showLink}
         setShowModal={setShowLink}
         setShowHeader={setShowHeader}
       />
-      <div>
+      <div className='flex flex-row gap-4'>
         <AddHeader
           showModal={showHeader}
           setShowModal={setShowHeader}
           setShowLink={setShowLink}
         />
+        <AddTitle
+          showModal={showTitle}
+          setShowModal={setShowTitle}
+          setShowLink={setShowLink}
+          items={items}
+        />
+        {/* 
+        <PhotoUploader /> */}
       </div>
       <div className='grow overflow-auto w-full'>
         <DndContext
