@@ -1,25 +1,25 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Editor } from "./editor/Editor";
-import { Authentication } from "./components/Authentication";
+import { Authentication } from "./auth/Authentication";
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: <div className='bg-black h-full w-full'>Hello world!</div>
     },
     {
-      path: '/editor',
+      path: "/editor",
       element: <Editor />
     },
     {
       path: "/auth",
       element: <Authentication />
     }
-  ])
+  ]);
 
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

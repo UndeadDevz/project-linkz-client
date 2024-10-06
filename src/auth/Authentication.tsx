@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Login } from "./auth/Login";
-import { Register } from "./auth/Register";
+import { Login } from "../components/authForms/Login";
+import { Register } from "../components/authForms/Register";
 
 export const Authentication = () => {
   const [logged, setLogged] = useState(false);

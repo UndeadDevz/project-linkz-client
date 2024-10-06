@@ -1,21 +1,22 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import { useEditorContext } from "../hooks/useEditorContext";
-import useOnClickOutside from "../hooks/useOnClickOutside";
+import { useEditorContext } from "../../hooks/useEditorContext";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+import { ILinkProps } from "../../context/EditorProvider";
 
 interface Props {
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   setShowLink: Dispatch<SetStateAction<boolean>>;
+  items: ILinkProps[];
 }
 
-export const AddHeader = ({ showModal, setShowModal, setShowLink }: Props) => {
-  const { addHeader } = useEditorContext();
+export const AddTitle = ({ showModal, setShowModal, setShowLink }: Props) => {
+  const { addTitle, title } = useEditorContext();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const header = new FormData(e.target as HTMLFormElement);
-
-    addHeader(header.get("header") as string);
+    const title = new FormData(e.target as HTMLFormElement);
+    addTitle(title.get("title") as string);
     setShowModal(false);
   };
 
@@ -31,7 +32,7 @@ export const AddHeader = ({ showModal, setShowModal, setShowLink }: Props) => {
         }}
         className='w-fit h-fit p-2 text-md bg-blue-700 hover:bg-blue-800 rounded-lg text-center text-white justify-center flex items-center cursor-pointer'
       >
-        + Header
+        Edit Title
       </div>
       {showModal && (
         <div
@@ -44,13 +45,15 @@ export const AddHeader = ({ showModal, setShowModal, setShowLink }: Props) => {
           >
             x
           </div>
-          <h2 className='pb-2'>Enter Header</h2>
+          <h2 className='pb-2'>Enter Title</h2>
           <form onSubmit={handleSubmit} className='flex gap-2'>
             <input
-              id='header'
-              name='header'
+              id='title'
+              name='title'
               className='grow'
               autoComplete='off'
+              value={title}
+              onChange={(e) => addTitle(e.target.value)}
             />
             <button
               type='submit'

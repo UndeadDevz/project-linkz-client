@@ -1,19 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useEditorContext } from "../hooks/useEditorContext";
+import { ILinkProps } from "../context/EditorProvider";
 interface UploadResponse {
   data: {
     link: string;
   };
   success: boolean;
   status: number;
+  url?: string;
 }
 
-const ImageUploader: React.FC = () => {
+interface Props {
+  id: any;
+}
+
+const ImageUploader = ({ id }: Props) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const baseUrl = import.meta.env.VITE_API_URL;
+  const { items, setSetItems, addPhoto } = useEditorContext();
+
   const uploadImage = async (file: File) => {
+    console.log("upload", id);
     const formData = new FormData();
 
     formData.append("image", file);
@@ -21,7 +31,6 @@ const ImageUploader: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-
       const response = await fetch(`${baseUrl}/image/upload`, {
         method: "POST",
         headers: {
@@ -33,6 +42,7 @@ const ImageUploader: React.FC = () => {
       const result: UploadResponse = await response.json();
 
       if (result.url) {
+        handleChange(result.url);
         setImageUrl(result.url);
       } else {
         setError("Error uploading image");
@@ -44,10 +54,27 @@ const ImageUploader: React.FC = () => {
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       uploadImage(file);
+    }
+  };
+
+  const handleChange = (imageUrl: string) => {
+    if (id === "photo") {
+      addPhoto(imageUrl);
+    } else {
+      const editIndex = items.findIndex((el: ILinkProps) => el.id === id);
+
+      const modifiedItems = [...items];
+      modifiedItems[editIndex] = {
+        ...modifiedItems[editIndex],
+        image: imageUrl
+      };
+      setSetItems(modifiedItems);
     }
   };
 
@@ -56,26 +83,21 @@ const ImageUploader: React.FC = () => {
       <input
         type='file'
         accept='image/*'
-        id='file-input'
+        id={id}
         onChange={handleFileChange}
-        className='hidden' // Hides the default file input
+        className='hidden'
       />
-      <label htmlFor='file-input' className='custom-file-upload'>
-        Upload Image
+      <label htmlFor={id} className='custom-file-upload'>
+        Upload {id === "photo" ? "Photo" : "Image"}
       </label>
       {loading && <p>Uploading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {imageUrl && (
         <div>
-          <p>Image uploaded successfully:</p>
+          {/*<p className='text-green-400'>Image uploaded successfully</p>
           <a href={imageUrl} target='_blank' rel='noopener noreferrer'>
             {imageUrl}
-          </a>
-          <img
-            src={imageUrl}
-            alt='Uploaded'
-            style={{ maxWidth: "300px", marginTop: "10px" }}
-          />
+          </a> */}
         </div>
       )}
     </div>

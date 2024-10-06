@@ -6,10 +6,21 @@ import { EditorContext } from "./EditorContext";
 
 export interface ILinkProps {
   id: UniqueIdentifier;
+  index?: number;
+  type?: string;
+  name?: string;
+  enabled?: boolean;
+  url?: string;
+  image?: string;
 }
 
 export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const [items, setItems] = useState<ILinkProps[]>([]);
+  const [title, setTitle] = useState<string>("");
+  const [photo, setPhoto] = useState<string>("");
+  const [background, setBackground] = useState<string>("");
+  const [template_id, setTemplateId] = useState<string>("");
+
   const setSetItems = (value: ILinkProps[]) => {
     setItems(value);
   };
@@ -18,8 +29,20 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const addHeader = (header: string) => {
     setItems((old) => [
       ...old,
-      { id: nanoid(), name: header, enabled: true, type: "header" },
+      { id: nanoid(), name: header, enabled: true, type: "header" }
     ]);
+  };
+
+  const addTitle = (title: string) => {
+    setTitle(title);
+  };
+
+  const addPhoto = (url: string) => {
+    setPhoto(url);
+  };
+
+  const addBackground = (color: string) => {
+    setBackground(color);
   };
 
   const addLink = (url: string) => {
@@ -30,8 +53,8 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         url: validateUrl(url),
         name: url,
         enabled: true,
-        type: "link",
-      },
+        type: "link"
+      }
     ]);
   };
 
@@ -41,14 +64,26 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
     });
   };
 
+  const setTemplate_id = (id: string) => {
+    setTemplateId(id);
+  };
+
   return (
     <EditorContext.Provider
       value={{
         items,
+        title,
         setSetItems,
         addLink,
         deleteElement,
         addHeader,
+        addTitle,
+        photo,
+        addPhoto,
+        background,
+        addBackground,
+        template_id,
+        setTemplate_id
       }}
     >
       {children}
