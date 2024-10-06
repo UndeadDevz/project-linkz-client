@@ -56,3 +56,9 @@
   transform: translateY(-50%);
   pointer-events: none;
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
