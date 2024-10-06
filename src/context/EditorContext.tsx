@@ -14,7 +14,9 @@ export const EditorContext = createContext<IEditorContext>({
   photo: "string",
   addPhoto: () => {},
   background: "",
-  addBackground: () => {}
+  addBackground: () => {},
+  template_id: "",
+  setTemplate_id: () => {}
 });
 export interface IEditorContext {
   items: ILinkProps[];
@@ -28,4 +30,6 @@ export interface IEditorContext {
   addPhoto: (url: string) => void;
   background: string;
   addBackground: (color: string) => void;
+  template_id: string;
+  setTemplate_id: (id: string) => void;
 }

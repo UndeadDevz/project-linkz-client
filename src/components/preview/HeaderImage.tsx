@@ -1,10 +1,6 @@
 import { useEditorContext } from "../../hooks/useEditorContext";
 
-interface Props {
-  url: string;
-}
-
-export const HeaderImage = ({ url }: Props) => {
+export const HeaderImage = () => {
   const { photo } = useEditorContext();
   return (
     <div className='w-[150px] h-[150px] rounded-full m-auto mt-4'>

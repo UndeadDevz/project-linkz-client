@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const SaveButton = () => {
-  const { items, title, photo, background } = useEditorContext();
+  const { items, title, photo, background, template_id } = useEditorContext();
   const { appearance } = useStyleContext();
 
   const parsedItems = items.map((el: any) => {
@@ -18,7 +18,7 @@ export const SaveButton = () => {
 
   const handleUpdateTemplate = async () => {
     try {
-      await updateTemplate("66feccbbf9719079303b50fa", {
+      await updateTemplate(template_id, {
         items: parsedItems,
         title,
         photo,

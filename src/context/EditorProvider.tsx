@@ -19,6 +19,7 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const [title, setTitle] = useState<string>("");
   const [photo, setPhoto] = useState<string>("");
   const [background, setBackground] = useState<string>("");
+  const [template_id, setTemplateId] = useState<string>("");
 
   const setSetItems = (value: ILinkProps[]) => {
     setItems(value);
@@ -63,6 +64,10 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
     });
   };
 
+  const setTemplate_id = (id: string) => {
+    setTemplateId(id);
+  };
+
   return (
     <EditorContext.Provider
       value={{
@@ -76,7 +81,9 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         photo,
         addPhoto,
         background,
-        addBackground
+        addBackground,
+        template_id,
+        setTemplate_id
       }}
     >
       {children}

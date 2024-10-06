@@ -19,7 +19,8 @@ export const Preview = () => {
     addTitle,
     addPhoto,
     background,
-    addBackground
+    addBackground,
+    setTemplate_id
   } = useEditorContext();
 
   const { loadAppearanceFromBack, appearance } = useStyleContext();
@@ -40,6 +41,8 @@ export const Preview = () => {
 
       addBackground(response[0].background);
 
+      setTemplate_id(response[0].template_id);
+
       addTitle(response[0].title);
       setSetItems(
         response[0].items.map((el: any) => ({
@@ -51,9 +54,6 @@ export const Preview = () => {
     })();
   }, []);
 
-  const imageUrl =
-    "http://res.cloudinary.com/dyawxpem7/image/upload/v1728151072/jtduhgzmz9fzhbi2ctcn.webp";
-
   return (
     <div
       style={{ backgroundColor: background }}
@@ -61,7 +61,7 @@ export const Preview = () => {
       onClick={() => console.log(background)}
     >
       <div className='overflow-auto scrollbar-none h-full w-full'>
-        <HeaderImage url={imageUrl} />
+        <HeaderImage />
         <TitlePreview title={title} />
         {items
           .filter((el) => el.enabled)
