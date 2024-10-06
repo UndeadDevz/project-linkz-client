@@ -6,7 +6,7 @@ export const HeaderImage = () => {
     <div className='w-[150px] h-[150px] rounded-full m-auto mt-4'>
       <img
         src={photo}
-        alt='header'
+        alt=''
         className='w-full h-full object-cover rounded-full'
       />
     </div>
