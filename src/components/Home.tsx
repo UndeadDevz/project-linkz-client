@@ -15,7 +15,7 @@ import {
   Copy
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { getUserTemplates } from '@/services/template.service'
+import { createTemplate, getUserTemplates } from '@/services/template.service'
 import { useNavigate } from 'react-router-dom'
 
 const templatesMock = [
@@ -77,6 +77,10 @@ export default function Home() {
       }
     })()
   }, [])
+  const handleClick = async () => {
+    const response = await createTemplate({})
+    console.log(response)
+  }
   return (
     <div className='min-h-screen bg-black text-gray-100 py-8 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-7xl mx-auto'>
@@ -93,7 +97,10 @@ export default function Home() {
                 className='pl-10 pr-4 py-2 w-full sm:w-64 rounded-full bg-gray-900 border-purple-700 text-purple-100 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50'
               />
             </div>
-            <Button className='bg-purple-600 hover:bg-purple-700 text-white rounded-full relative overflow-hidden group'>
+            <Button
+              className='bg-purple-600 hover:bg-purple-700 text-white rounded-full relative overflow-hidden group'
+              onClick={handleClick}
+            >
               <span className='relative z-10 flex items-center'>
                 <PlusCircle className='mr-2 h-4 w-4' /> Nuevo Template
               </span>
