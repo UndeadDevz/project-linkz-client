@@ -14,38 +14,69 @@ import {
   Trash,
   Copy
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { getUserTemplates } from '@/services/template.service'
+import { useNavigate } from 'react-router-dom'
 
-// Simulación de datos de templates
-const templates = [
+const templatesMock = [
   {
-    id: 1,
+    template_id: 1,
     name: 'Landing Page',
-    imageUrl: '/src/assets/img-placeholder.webp'
+    imageUrl: '/src/assets/img-placeholder.webp',
+    background: '#000000'
   },
   {
-    id: 2,
+    tempalte_id: 2,
     name: 'Portafolio',
-    imageUrl: '/src/assets/img-placeholder.webp'
+    imageUrl: '/src/assets/img-placeholder.webp',
+    background: '#000000'
   },
   {
-    id: 3,
+    tempalte_id: 3,
     name: 'Blog Personal',
-    imageUrl: '/src/assets/img-placeholder.webp'
+    imageUrl: '/src/assets/img-placeholder.webp',
+    background: '#000000'
   },
   {
-    id: 4,
+    tempalte_id: 4,
     name: 'Tienda Online',
-    imageUrl: '/src/assets/img-placeholder.webp'
+    imageUrl: '/src/assets/img-placeholder.webp',
+    background: '#000000'
   },
   {
-    id: 5,
+    tempalte_id: 5,
     name: 'Currículum Vitae',
-    imageUrl: '/src/assets/img-placeholder.webp'
+    imageUrl: '/src/assets/img-placeholder.webp',
+    background: '#000000'
   },
-  { id: 6, name: 'Evento', imageUrl: '/src/assets/img-placeholder.webp' }
+  {
+    tempalte_id: 6,
+    name: 'Evento',
+    imageUrl: '/src/assets/img-placeholder.webp',
+    background: '#000000'
+  }
 ]
 
 export default function Home() {
+  const navigate = useNavigate()
+  const [templates, setTemplates] = useState(templatesMock)
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await getUserTemplates()
+        setTemplates(
+          response.map((el) => ({
+            template_id: el.template_id,
+            imageUrl: el.photo,
+            name: el.name,
+            background: el.background
+          }))
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    })()
+  }, [])
   return (
     <div className='min-h-screen bg-black text-gray-100 py-8 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-7xl mx-auto'>
@@ -72,23 +103,31 @@ export default function Home() {
         </header>
 
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6'>
-          {templates.map((template) => (
-            <div key={template.id} className='relative group'>
+          {templates.map((template, i) => (
+            <div key={i} className='relative group'>
               <div className='absolute inset-0 bg-purple-600 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 blur'></div>
               <div className='relative bg-gray-800 rounded-lg overflow-hidden transform transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg group-hover:shadow-purple-500/50'>
-                <img
-                  src={template.imageUrl}
-                  alt={template.name}
-                  width={300}
-                  height={300}
-                  className='w-full aspect-square object-cover'
-                />
-                <div className='absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center'>
+                <div
+                  className='w-full aspect-square flex justify-center items-center'
+                  style={{ background: template.background }}
+                >
+                  <img
+                    src={template.imageUrl}
+                    alt={template.name}
+                    width={150}
+                    height={150}
+                    className='h-3/4 w-3/4 object-cover rounded-full'
+                  />
+                </div>
+                <div className='absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center'>
                   <Button
                     variant='secondary'
                     size='icon'
                     className='absolute top-2 left-2 bg-purple-800 hover:bg-purple-700 text-purple-100'
                     aria-label={`Editar ${template.name}`}
+                    onClick={() => {
+                      navigate(`/editor/${template.template_id}`)
+                    }}
                   >
                     <Edit className='h-4 w-4' />
                   </Button>

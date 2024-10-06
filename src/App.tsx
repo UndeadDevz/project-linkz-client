@@ -11,7 +11,7 @@ function App() {
       element: <div className='bg-black h-full w-full'>Hello world!</div>
     },
     {
-      path: '/editor',
+      path: '/editor/:template_id',
       element: <Editor />
     },
     {
