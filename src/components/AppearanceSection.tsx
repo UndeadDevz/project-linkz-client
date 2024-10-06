@@ -1,8 +1,8 @@
 import { useStyleContext } from "../context/StyleContext";
-import { SizeComponent } from "./SizeComponent";
-import { BorderWidth } from "./BorderWidthComponent";
-import { BorderRadiusComponent } from "./BorderRadiusComponent";
-import { TextAlign } from "./TextAlign";
+import { SizeComponent } from "./styleComponents/SizeComponent";
+import { BorderWidth } from "./styleComponents/BorderWidthComponent";
+import { BorderRadiusComponent } from "./styleComponents/BorderRadiusComponent";
+import { TextAlign } from "./styleComponents/TextAlign";
 
 export const AppearanceSection = () => {
   const { appearance, changeAppearance } = useStyleContext();
@@ -17,7 +17,12 @@ export const AppearanceSection = () => {
        *
        * */}
       <article className='bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3'>
-        <h2 className='text-lg'>Title appearence</h2>
+        <h2
+          className='text-lg'
+          onClick={() => console.log(appearance.headerStyle)}
+        >
+          Title appearence
+        </h2>
         <div className='flex flex-row gap-6 items-center'>
           <label className='flex flex-row items-center gap-1'>
             Font color:
@@ -104,7 +109,7 @@ export const AppearanceSection = () => {
               type='color'
               value={appearance.headerStyle.color}
               onChange={(e) =>
-                changeAppearance("headerStyle", "color", e.target.value)
+                changeAppearance("headerStyle", "fontColor", e.target.value)
               }
             />
           </label>
@@ -118,7 +123,7 @@ export const AppearanceSection = () => {
               </select>
             </div>
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          {/*  <label className='flex flex-row items-center gap-1'>
             Font style:
             <div className='select-container'>
               <select
@@ -133,7 +138,7 @@ export const AppearanceSection = () => {
                 <option value={"oblique"}>oblique</option>
               </select>
             </div>
-          </label>
+          </label> */}
           <label className='flex flex-row items-center gap-1'>
             Font weight:
             <div className='select-container'>
@@ -167,7 +172,7 @@ export const AppearanceSection = () => {
               }
             />
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          {/* <label className='flex flex-row items-center gap-1'>
             Align:
             <TextAlign
               value={appearance.headerStyle.textAlign}
@@ -175,7 +180,7 @@ export const AppearanceSection = () => {
                 changeAppearance("headerStyle", "textAlign", value)
               }
             />
-          </label>
+          </label> */}
         </div>
       </article>{" "}
       {/*

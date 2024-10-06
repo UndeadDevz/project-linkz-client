@@ -20,7 +20,7 @@ const ImageUploader = ({ id }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const baseUrl = import.meta.env.VITE_API_URL;
-  const { items, setSetItems } = useEditorContext();
+  const { items, setSetItems, addPhoto } = useEditorContext();
 
   const uploadImage = async (file: File) => {
     console.log("upload", id);
@@ -61,15 +61,21 @@ const ImageUploader = ({ id }: Props) => {
     if (file) {
       uploadImage(file);
     }
-    console.log("filechange", id);
   };
 
   const handleChange = (imageUrl: string) => {
-    const editIndex = items.findIndex((el: ILinkProps) => el.id === id);
+    if (id === "photo") {
+      addPhoto(imageUrl);
+    } else {
+      const editIndex = items.findIndex((el: ILinkProps) => el.id === id);
 
-    const modifiedItems = [...items];
-    modifiedItems[editIndex] = { ...modifiedItems[editIndex], image: imageUrl };
-    setSetItems(modifiedItems);
+      const modifiedItems = [...items];
+      modifiedItems[editIndex] = {
+        ...modifiedItems[editIndex],
+        image: imageUrl
+      };
+      setSetItems(modifiedItems);
+    }
   };
 
   return (
@@ -82,16 +88,16 @@ const ImageUploader = ({ id }: Props) => {
         className='hidden'
       />
       <label htmlFor={id} className='custom-file-upload'>
-        Upload Image
+        Upload {id === "photo" ? "Photo" : "Image"}
       </label>
       {loading && <p>Uploading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {imageUrl && (
         <div>
-          <p>Image uploaded successfully:</p>
+          {/*<p className='text-green-400'>Image uploaded successfully</p>
           <a href={imageUrl} target='_blank' rel='noopener noreferrer'>
             {imageUrl}
-          </a>
+          </a> */}
         </div>
       )}
     </div>

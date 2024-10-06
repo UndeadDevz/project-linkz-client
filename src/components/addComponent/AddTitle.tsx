@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import { useEditorContext } from "../hooks/useEditorContext";
-import useOnClickOutside from "../hooks/useOnClickOutside";
-import { ILinkProps } from "../context/EditorProvider";
+import { useEditorContext } from "../../hooks/useEditorContext";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+import { ILinkProps } from "../../context/EditorProvider";
 
 interface Props {
   showModal: boolean;

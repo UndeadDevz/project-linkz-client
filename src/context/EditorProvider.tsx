@@ -17,6 +17,7 @@ export interface ILinkProps {
 export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const [items, setItems] = useState<ILinkProps[]>([]);
   const [title, setTitle] = useState<string>("");
+  const [photo, setPhoto] = useState<string>("");
   const setSetItems = (value: ILinkProps[]) => {
     setItems(value);
   };
@@ -25,12 +26,16 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const addHeader = (header: string) => {
     setItems((old) => [
       ...old,
-      { id: nanoid(), name: header, enabled: true, type: "header" },
+      { id: nanoid(), name: header, enabled: true, type: "header" }
     ]);
   };
 
   const addTitle = (title: string) => {
     setTitle(title);
+  };
+
+  const addPhoto = (url: string) => {
+    setPhoto(url);
   };
 
   const addLink = (url: string) => {
@@ -41,8 +46,8 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         url: validateUrl(url),
         name: url,
         enabled: true,
-        type: "link",
-      },
+        type: "link"
+      }
     ]);
   };
 
@@ -62,6 +67,8 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         deleteElement,
         addHeader,
         addTitle,
+        photo,
+        addPhoto
       }}
     >
       {children}

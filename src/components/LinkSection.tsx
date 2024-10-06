@@ -16,13 +16,13 @@ import {
   useSensors
 } from "@dnd-kit/core";
 
-import { AddLink } from "./AddLink";
-import { AddHeader } from "./AddHeader";
+import { AddLink } from "./addComponent/AddLink";
+import { AddHeader } from "./addComponent/AddHeader";
 import { useEditorContext } from "../hooks/useEditorContext";
 import { ILinkProps } from "../context/EditorProvider";
 import { useState } from "react";
-import { AddTitle } from "./AddTitle";
-import PhotoUploader from "./AddPhoto";
+import { AddTitle } from "./addComponent/AddTitle";
+import PhotoUploader from "./addComponent/AddPhoto";
 import ImageUploader from "./ImageUploader";
 
 export const LinkSection = () => {
@@ -68,8 +68,7 @@ export const LinkSection = () => {
           setShowLink={setShowLink}
           items={items}
         />
-        {/* 
-        <PhotoUploader /> */}
+        <ImageUploader id='photo' />
       </div>
       <div className='grow overflow-auto w-full'>
         <DndContext

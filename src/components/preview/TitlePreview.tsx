@@ -1,4 +1,4 @@
-import { useStyleContext } from "../context/StyleContext";
+import { useStyleContext } from "../../context/StyleContext";
 
 export const TitlePreview = ({ title }: { title: string }) => {
   const { appearance } = useStyleContext();
@@ -8,9 +8,9 @@ export const TitlePreview = ({ title }: { title: string }) => {
       style={{
         ...appearance.titleStyle,
         color: appearance.titleStyle.fontColor,
-        fontFamily: appearance.titleStyle.fontStyle,
+        fontFamily: appearance.titleStyle.fontStyle
       }}
-      className="block h-fit w-full my-0.5 text-center"
+      className='block h-fit w-full my-0.5 text-center'
       onClick={() => appearance}
     >
       {title}
