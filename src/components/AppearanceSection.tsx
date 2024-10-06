@@ -3,12 +3,27 @@ import { SizeComponent } from "./styleComponents/SizeComponent";
 import { BorderWidth } from "./styleComponents/BorderWidthComponent";
 import { BorderRadiusComponent } from "./styleComponents/BorderRadiusComponent";
 import { TextAlign } from "./styleComponents/TextAlign";
+import { useEditorContext } from "../hooks/useEditorContext";
 
 export const AppearanceSection = () => {
   const { appearance, changeAppearance } = useStyleContext();
+  const { background, addBackground } = useEditorContext();
 
   return (
     <div className='p-2 flex flex-col gap-4 max-w-[900px] w-full relative  h-full font-nunito'>
+      <article className='bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3'>
+        <h2 className='text-lg'>Background appearence</h2>
+        <div className='flex flex-row gap-6 items-center'>
+          <label className='flex flex-row items-center gap-1'>
+            Background Color:
+            <input
+              type='color'
+              value={background}
+              onChange={(e) => addBackground(e.target.value)}
+            />
+          </label>
+        </div>
+      </article>
       {/*
        *
        *

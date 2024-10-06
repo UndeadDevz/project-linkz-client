@@ -3,7 +3,7 @@ import { useEditorContext } from "../../hooks/useEditorContext";
 import { updateTemplate } from "../../services/template.service";
 
 export const SaveButton = () => {
-  const { items, title, photo } = useEditorContext();
+  const { items, title, photo, background } = useEditorContext();
   const { appearance } = useStyleContext();
 
   const parsedItems = items.map((el: any) => {
@@ -19,6 +19,7 @@ export const SaveButton = () => {
       items: parsedItems,
       title,
       photo,
+      background,
       ...rest
     });
   };

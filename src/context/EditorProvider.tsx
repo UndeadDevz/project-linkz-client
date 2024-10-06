@@ -18,6 +18,8 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   const [items, setItems] = useState<ILinkProps[]>([]);
   const [title, setTitle] = useState<string>("");
   const [photo, setPhoto] = useState<string>("");
+  const [background, setBackground] = useState<string>("");
+
   const setSetItems = (value: ILinkProps[]) => {
     setItems(value);
   };
@@ -36,6 +38,10 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
 
   const addPhoto = (url: string) => {
     setPhoto(url);
+  };
+
+  const addBackground = (color: string) => {
+    setBackground(color);
   };
 
   const addLink = (url: string) => {
@@ -68,7 +74,9 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         addHeader,
         addTitle,
         photo,
-        addPhoto
+        addPhoto,
+        background,
+        addBackground
       }}
     >
       {children}

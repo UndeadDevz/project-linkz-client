@@ -12,7 +12,9 @@ export const EditorContext = createContext<IEditorContext>({
   addTitle: () => {},
   deleteElement: () => {},
   photo: "string",
-  addPhoto: () => {}
+  addPhoto: () => {},
+  background: "",
+  addBackground: () => {}
 });
 export interface IEditorContext {
   items: ILinkProps[];
@@ -24,4 +26,6 @@ export interface IEditorContext {
   deleteElement: (value: UniqueIdentifier) => void;
   photo: string;
   addPhoto: (url: string) => void;
+  background: string;
+  addBackground: (color: string) => void;
 }

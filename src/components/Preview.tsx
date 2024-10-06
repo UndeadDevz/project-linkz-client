@@ -12,14 +12,23 @@ const componentMap = {
   header: HeaderPreview
 };
 export const Preview = () => {
-  const { items, setSetItems, title, addTitle, photo, addPhoto } =
-    useEditorContext();
+  const {
+    items,
+    setSetItems,
+    title,
+    addTitle,
+    addPhoto,
+    background,
+    addBackground
+  } = useEditorContext();
 
   const { loadAppearanceFromBack, appearance } = useStyleContext();
 
   useEffect(() => {
     (async () => {
       const response = await getUserTemplates();
+
+      console.log(response[0].background);
 
       loadAppearanceFromBack({
         headerStyle: response[0].headerStyle,
@@ -28,6 +37,8 @@ export const Preview = () => {
       });
 
       addPhoto(response[0].photo);
+
+      addBackground(response[0].background);
 
       addTitle(response[0].title);
       setSetItems(
@@ -45,8 +56,9 @@ export const Preview = () => {
 
   return (
     <div
-      className='xl:w-9/12 w-11/12 h-full bg-gray-800 rounded-[3rem] shadow-lg shadow-gray-400 px-4 py-10'
-      onClick={() => console.log(photo)}
+      style={{ backgroundColor: background }}
+      className={`xl:w-9/12 w-11/12 h-full rounded-[3rem] shadow-lg shadow-gray-400 px-4 py-10`}
+      onClick={() => console.log(background)}
     >
       <div className='overflow-auto scrollbar-none h-full w-full'>
         <HeaderImage url={imageUrl} />
