@@ -1,16 +1,17 @@
-import { useEffect } from "react";
-import { useEditorContext } from "../hooks/useEditorContext";
-import { HeaderPreview } from "./preview/HeaderPreview";
-import { LinkPreview } from "./preview/linkPreview/LinkPreview";
-import { getUserTemplates } from "../services/template.service";
-import { nanoid } from "nanoid";
-import { useStyleContext } from "../context/StyleContext";
-import { HeaderImage } from "./preview/HeaderImage";
-import { TitlePreview } from "./preview/TitlePreview";
+import { useEffect } from 'react'
+import { useEditorContext } from '../hooks/useEditorContext'
+import { HeaderPreview } from './preview/HeaderPreview'
+import { LinkPreview } from './preview/linkPreview/LinkPreview'
+import { getTemplate } from '../services/template.service'
+import { nanoid } from 'nanoid'
+import { useStyleContext } from '../context/StyleContext'
+import { HeaderImage } from './preview/HeaderImage'
+import { TitlePreview } from './preview/TitlePreview'
+import { useParams } from 'react-router-dom'
 const componentMap = {
   link: LinkPreview,
   header: HeaderPreview
-};
+}
 export const Preview = () => {
   const {
     items,
@@ -21,38 +22,36 @@ export const Preview = () => {
     background,
     addBackground,
     setTemplate_id
-  } = useEditorContext();
-
-  const { loadAppearanceFromBack, appearance } = useStyleContext();
+  } = useEditorContext()
+  const { template_id } = useParams()
+  const { loadAppearanceFromBack } = useStyleContext()
 
   useEffect(() => {
-    (async () => {
-      const response = await getUserTemplates();
-
-      console.log(response[0].background);
+    ;(async () => {
+      const response = await getTemplate(template_id || '')
 
       loadAppearanceFromBack({
-        headerStyle: response[0].headerStyle,
-        linkStyle: response[0].linkStyle,
-        titleStyle: response[0].titleStyle
-      });
+        headerStyle: response.headerStyle,
+        linkStyle: response.linkStyle,
+        titleStyle: response.titleStyle
+      })
 
-      addPhoto(response[0].photo);
+      addPhoto(response.photo)
 
-      addBackground(response[0].background);
+      addBackground(response.background)
 
-      setTemplate_id(response[0].template_id);
+      setTemplate_id(response.template_id)
 
-      addTitle(response[0].title);
+      addTitle(response.title)
       setSetItems(
-        response[0].items.map((el: any) => ({
+        response.items.map((el: any) => ({
           ...el,
           id: nanoid(7),
           type: el.type
         }))
-      );
-    })();
-  }, []);
+      )
+    })()
+  }, [])
 
   return (
     <div
@@ -67,14 +66,14 @@ export const Preview = () => {
           .filter((el) => el.enabled)
           .map((item) => {
             // @ts-ignore
-            const PreviewComponent = componentMap[item.type];
+            const PreviewComponent = componentMap[item.type]
 
             if (!PreviewComponent) {
-              return null; // Maneja un caso por defecto si es necesario
+              return null // Maneja un caso por defecto si es necesario
             }
-            return <PreviewComponent item={item} key={item.id} />;
+            return <PreviewComponent item={item} key={item.id} />
           })}
       </div>
     </div>
-  );
-};
+  )
+}
