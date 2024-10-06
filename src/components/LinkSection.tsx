@@ -22,7 +22,6 @@ import { useEditorContext } from "../hooks/useEditorContext";
 import { ILinkProps } from "../context/EditorProvider";
 import { useState } from "react";
 import { AddTitle } from "./addComponent/AddTitle";
-import PhotoUploader from "./addComponent/AddPhoto";
 import ImageUploader from "./ImageUploader";
 
 export const LinkSection = () => {

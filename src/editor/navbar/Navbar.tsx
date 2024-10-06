@@ -40,7 +40,7 @@ export const Navbar = ({
             <div
               onClick={() => handleSelect(item.name)}
               key={key}
-              className={`cursor-pointer py-4 flex flex-row gap-2 text-base font-semibold h-8 text-gray-600 ${
+              className={`cursor-pointer py-4 flex flex-row gap-2 text-base font-semibold h-10 text-gray-600 ${
                 selected === item.name &&
                 "text-blue-600 border-t-2 border-blue-600"
               }`}
@@ -63,7 +63,9 @@ export const Navbar = ({
           );
         })}
       </div>
-      <SaveButton />
+      <div className='flex items-center justify-center h-10 p-2'>
+        <SaveButton />
+      </div>
     </div>
   );
 };
