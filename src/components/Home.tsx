@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 import {
   PlusCircle,
   Search,
@@ -13,74 +13,74 @@ import {
   Edit,
   Trash,
   Copy
-} from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { createTemplate, getUserTemplates } from '@/services/template.service'
-import { useNavigate } from 'react-router-dom'
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { createTemplate, getUserTemplates } from "@/services/template.service";
+import { useNavigate } from "react-router-dom";
 
 const templatesMock = [
   {
     template_id: 1,
-    name: 'Landing Page',
-    imageUrl: '/src/assets/img-placeholder.webp',
-    background: '#000000'
+    name: "Landing Page",
+    imageUrl: "/src/assets/img-placeholder.webp",
+    background: "#000000"
   },
   {
     tempalte_id: 2,
-    name: 'Portafolio',
-    imageUrl: '/src/assets/img-placeholder.webp',
-    background: '#000000'
+    name: "Portafolio",
+    imageUrl: "/src/assets/img-placeholder.webp",
+    background: "#000000"
   },
   {
     tempalte_id: 3,
-    name: 'Blog Personal',
-    imageUrl: '/src/assets/img-placeholder.webp',
-    background: '#000000'
+    name: "Blog Personal",
+    imageUrl: "/src/assets/img-placeholder.webp",
+    background: "#000000"
   },
   {
     tempalte_id: 4,
-    name: 'Tienda Online',
-    imageUrl: '/src/assets/img-placeholder.webp',
-    background: '#000000'
+    name: "Tienda Online",
+    imageUrl: "/src/assets/img-placeholder.webp",
+    background: "#000000"
   },
   {
     tempalte_id: 5,
-    name: 'Currículum Vitae',
-    imageUrl: '/src/assets/img-placeholder.webp',
-    background: '#000000'
+    name: "Currículum Vitae",
+    imageUrl: "/src/assets/img-placeholder.webp",
+    background: "#000000"
   },
   {
     tempalte_id: 6,
-    name: 'Evento',
-    imageUrl: '/src/assets/img-placeholder.webp',
-    background: '#000000'
+    name: "Evento",
+    imageUrl: "/src/assets/img-placeholder.webp",
+    background: "#000000"
   }
-]
+];
 
 export default function Home() {
-  const navigate = useNavigate()
-  const [templates, setTemplates] = useState(templatesMock)
+  const navigate = useNavigate();
+  const [templates, setTemplates] = useState(templatesMock);
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       try {
-        const response = await getUserTemplates()
+        const response = await getUserTemplates();
         setTemplates(
-          response.map((el) => ({
+          response.map((el: any) => ({
             template_id: el.template_id,
             imageUrl: el.photo,
             name: el.name,
             background: el.background
           }))
-        )
+        );
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    })()
-  }, [])
+    })();
+  }, []);
   const handleClick = async () => {
-    const response = await createTemplate({})
-    console.log(response)
-  }
+    const response = await createTemplate({});
+    navigate(`/editor/${response.template_id}`);
+  };
   return (
     <div className='min-h-screen bg-black text-gray-100 py-8 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-7xl mx-auto'>
@@ -133,7 +133,7 @@ export default function Home() {
                     className='absolute top-2 left-2 bg-purple-800 hover:bg-purple-700 text-purple-100'
                     aria-label={`Editar ${template.name}`}
                     onClick={() => {
-                      navigate(`/editor/${template.template_id}`)
+                      navigate(`/editor/${template.template_id}`);
                     }}
                   >
                     <Edit className='h-4 w-4' />
@@ -168,5 +168,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
