@@ -9,7 +9,7 @@ export const LinkPreview = ({ item }: { item: ILinkProps }) => {
       href={item.url}
       key={item.id}
       style={appearance.linkStyle}
-      className="h-auto min-h-10 w-full text-center my-4 rounded-md flex items-center justify-center border-none overflow-hidden"
+      className="h-auto min-h-14 w-full text-center my-4 rounded-md flex items-center justify-center border-none overflow-hidden"
     >
       {item && item.image ? (
         <LinkImagePreview
