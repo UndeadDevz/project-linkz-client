@@ -1,25 +1,50 @@
-import { UniqueIdentifier } from '@dnd-kit/core'
-import { nanoid } from 'nanoid'
-import { useState } from 'react'
-import { validateUrl } from '../utils/validateUrl'
-import { EditorContext } from './EditorContext'
+import { UniqueIdentifier } from "@dnd-kit/core";
+import { nanoid } from "nanoid";
+import { useState } from "react";
+import { validateUrl } from "../utils/validateUrl";
+import { EditorContext } from "./EditorContext";
 
 export interface ILinkProps {
-  id: UniqueIdentifier
+  id: UniqueIdentifier;
+  index?: number;
+  type?: string;
+  name?: string;
+  enabled?: boolean;
+  url?: string;
+  image?: string;
 }
 
 export const EditorProvider = ({ children }: { children: JSX.Element }) => {
-  const [items, setItems] = useState<ILinkProps[]>([])
+  const [items, setItems] = useState<ILinkProps[]>([]);
+  const [title, setTitle] = useState<string>("");
+  const [photo, setPhoto] = useState<string>("");
+  const [background, setBackground] = useState<string>("");
+  const [template_id, setTemplateId] = useState<string>("");
+
   const setSetItems = (value: ILinkProps[]) => {
-    setItems(value)
-  }
+    setItems(value);
+  };
+
   // TODO type should be a ENUM
   const addHeader = (header: string) => {
     setItems((old) => [
       ...old,
-      { id: nanoid(), name: header, enabled: true, type: 'header' }
-    ])
-  }
+      { id: nanoid(), name: header, enabled: true, type: "header" }
+    ]);
+  };
+
+  const addTitle = (title: string) => {
+    setTitle(title);
+  };
+
+  const addPhoto = (url: string) => {
+    setPhoto(url);
+  };
+
+  const addBackground = (color: string) => {
+    setBackground(color);
+  };
+
   const addLink = (url: string) => {
     setItems((old) => [
       ...old,
@@ -28,26 +53,40 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
         url: validateUrl(url),
         name: url,
         enabled: true,
-        type: 'link'
+        type: "link"
       }
-    ])
-  }
+    ]);
+  };
+
   const deleteElement = (id: UniqueIdentifier) => {
     setItems((old) => {
-      return old.filter((el) => el.id !== id)
-    })
-  }
+      return old.filter((el) => el.id !== id);
+    });
+  };
+
+  const setTemplate_id = (id: string) => {
+    setTemplateId(id);
+  };
+
   return (
     <EditorContext.Provider
       value={{
         items,
+        title,
         setSetItems,
         addLink,
         deleteElement,
-        addHeader
+        addHeader,
+        addTitle,
+        photo,
+        addPhoto,
+        background,
+        addBackground,
+        template_id,
+        setTemplate_id
       }}
     >
       {children}
     </EditorContext.Provider>
-  )
-}
+  );
+};

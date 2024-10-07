@@ -1,63 +1,61 @@
-import { useState } from "react";
-import { MdOutlineEmail, MdOutlineLock } from "react-icons/md";
-import { login } from "../../services/loginService";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { MdOutlineEmail, MdOutlineLock } from 'react-icons/md'
+import { login } from '../../services/loginService'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
-  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface LoginInputs {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 export const Login = ({ setLogged }: Props) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [loginInputs, setLoginInputs] = useState<LoginInputs>({
-    email: "",
-    password: ""
-  });
+    email: '',
+    password: ''
+  })
 
   const [loggedResponse, setLoggedResponse] = useState({
-    message: "",
-    color: ""
-  });
+    message: '',
+    color: ''
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setLoginInputs((prevInputs) => ({
       ...prevInputs,
       [name]: value
-    }));
-  };
+    }))
+  }
 
   const handleLogin = async () => {
-    console.log("handleLogin");
-    const response = await login(loginInputs);
-    if (response.message === "Login Successful") {
+    const response = await login(loginInputs)
+    if (response.message === 'Login Successful') {
       setLoggedResponse({
-        message: "Login successful",
-        color: "text-green-500"
-      });
-      Cookies.set("authToken", response.access_token, {
+        message: 'Login successful',
+        color: 'text-green-500'
+      })
+      Cookies.set('authToken', response.access_token, {
         expires: 7,
         secure: true,
-        sameSite: "Strict"
-      });
+        sameSite: 'Strict'
+      })
       setTimeout(() => {
-        navigate("/editor");
-      }, 1000);
+        navigate('/home')
+      }, 1000)
     } else {
       setLoggedResponse({
-        message: "Wrong mail or password",
-        color: "text-red-500"
-      });
+        message: 'Wrong mail or password',
+        color: 'text-red-500'
+      })
     }
-    console.log("response", response);
-  };
+  }
 
   return (
     <div className='h-5/6 shadow rounded-lg w-1/3 bg-white p-7 flex flex-col items-center justify-between'>
@@ -116,5 +114,5 @@ export const Login = ({ setLogged }: Props) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}

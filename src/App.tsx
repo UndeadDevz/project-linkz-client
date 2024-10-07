@@ -1,7 +1,8 @@
-import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Editor } from "./editor/Editor";
-import { Authentication } from "./components/Authentication";
+import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Editor } from './editor/Editor'
+import { Authentication } from './auth/Authentication'
+import Home from './components/Home'
 
 function App() {
   const router = createBrowserRouter([
@@ -10,12 +11,16 @@ function App() {
       element: <div className='bg-black h-full w-full'>Hello world!</div>
     },
     {
-      path: '/editor',
+      path: '/editor/:template_id',
       element: <Editor />
     },
     {
-      path: "/auth",
+      path: '/auth',
       element: <Authentication />
+    },
+    {
+      path: '/home',
+      element: <Home />
     }
   ])
 

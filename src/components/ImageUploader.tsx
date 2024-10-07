@@ -1,76 +1,107 @@
-import React, { useState } from 'react'
-import Cookies from 'js-cookie'
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useEditorContext } from "../hooks/useEditorContext";
+import { ILinkProps } from "../context/EditorProvider";
 interface UploadResponse {
   data: {
-    link: string
-  }
-  success: boolean
-  status: number
+    link: string;
+  };
+  success: boolean;
+  status: number;
+  url?: string;
 }
 
-const ImageUploader: React.FC = () => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
+interface Props {
+  id: any;
+}
+
+const ImageUploader = ({ id }: Props) => {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const { items, setSetItems, addPhoto } = useEditorContext();
 
   const uploadImage = async (file: File) => {
-    const formData = new FormData()
+    console.log("upload", id);
+    const formData = new FormData();
 
-    formData.append('image', file)
+    formData.append("image", file);
 
     try {
-      setLoading(true)
-      setError(null)
-
-      const response = await fetch('http://localhost:3000/image/upload', {
-        method: 'POST',
+      setLoading(true);
+      setError(null);
+      const response = await fetch(`${baseUrl}/image/upload`, {
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${Cookies.get('authToken')}`
+          Authorization: `Bearer ${Cookies.get("authToken")}`
         },
         body: formData
-      })
+      });
 
-      const result: UploadResponse = await response.json()
+      const result: UploadResponse = await response.json();
 
-      if (result.success) {
-        setImageUrl(result.data.link)
+      if (result.url) {
+        handleChange(result.url);
+        setImageUrl(result.url);
       } else {
-        setError('Error uploading image')
+        setError("Error uploading image");
       }
     } catch (err) {
-      setError('Error uploading image')
+      setError("Error uploading image");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
     if (file) {
-      uploadImage(file)
+      uploadImage(file);
     }
-  }
+  };
+
+  const handleChange = (imageUrl: string) => {
+    if (id === "photo") {
+      addPhoto(imageUrl);
+    } else {
+      const editIndex = items.findIndex((el: ILinkProps) => el.id === id);
+
+      const modifiedItems = [...items];
+      modifiedItems[editIndex] = {
+        ...modifiedItems[editIndex],
+        image: imageUrl
+      };
+      setSetItems(modifiedItems);
+    }
+  };
 
   return (
-    <div>
-      <input type='file' accept='image/*' onChange={handleFileChange} />
+    <div className='flex flex-row gap-2 items-center'>
+      <input
+        type='file'
+        accept='image/*'
+        id={id}
+        onChange={handleFileChange}
+        className='hidden'
+      />
+      <label htmlFor={id} className='custom-file-upload'>
+        Upload {id === "photo" ? "Photo" : "Image"}
+      </label>
       {loading && <p>Uploading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {imageUrl && (
         <div>
-          <p>Image uploaded successfully:</p>
+          {/*<p className='text-green-400'>Image uploaded successfully</p>
           <a href={imageUrl} target='_blank' rel='noopener noreferrer'>
             {imageUrl}
-          </a>
-          <img
-            src={imageUrl}
-            alt='Uploaded'
-            style={{ maxWidth: '300px', marginTop: '10px' }}
-          />
+          </a> */}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ImageUploader
+export default ImageUploader;
