@@ -53,3 +53,14 @@ export const updateTemplate = async (id: string, data: any) => {
   });
   return response.json();
 };
+
+export const deleteTemplate = async (id: string) => {
+  const url = `http://localhost:8080/template/${id}`;
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${Cookies.get("authToken")}`,
+    },
+  });
+  return response.json();
+};
