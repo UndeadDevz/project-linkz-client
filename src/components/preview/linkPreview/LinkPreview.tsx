@@ -17,6 +17,7 @@ export const LinkPreview = ({ item }: { item: ILinkProps }) => {
           image={item.image as string}
           name={item.name as string}
           link={item.url as string}
+          style={appearance.linkStyle}
         />
       ) : (
         <p>{item.name}</p>
