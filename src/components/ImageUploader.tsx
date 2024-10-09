@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useEditorContext } from "../hooks/useEditorContext";
 import { ILinkProps } from "../context/EditorProvider";
+import { FaRegImage } from "react-icons/fa";
+
 interface UploadResponse {
   data: {
     link: string;
@@ -34,9 +36,9 @@ const ImageUploader = ({ id }: Props) => {
       const response = await fetch(`${baseUrl}/image/upload`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${Cookies.get("authToken")}`
+          Authorization: `Bearer ${Cookies.get("authToken")}`,
         },
-        body: formData
+        body: formData,
       });
 
       const result: UploadResponse = await response.json();
@@ -72,23 +74,34 @@ const ImageUploader = ({ id }: Props) => {
       const modifiedItems = [...items];
       modifiedItems[editIndex] = {
         ...modifiedItems[editIndex],
-        image: imageUrl
+        image: imageUrl,
       };
       setSetItems(modifiedItems);
     }
   };
 
   return (
-    <div className='flex flex-row gap-2 items-center'>
+    <div
+      className={`w-full ${
+        id === "photo" ? "h-16" : "h-10"
+      } text-md bg-blue-700 hover:bg-blue-800 rounded-lg text-center text-white justify-center flex flex-col items-center cursor-pointer`}
+    >
       <input
-        type='file'
-        accept='image/*'
+        type="file"
+        accept="image/*"
         id={id}
         onChange={handleFileChange}
-        className='hidden'
+        className="hidden"
       />
-      <label htmlFor={id} className='custom-file-upload'>
-        Upload {id === "photo" ? "Photo" : "Image"}
+
+      <label
+        htmlFor={id}
+        className={`flex items-center justify-center text-sm w-full cursor-pointer ${
+          id === "photo" ? "h-16 flex-col" : "h-10 flex-row gap-2"
+        }`}
+      >
+        <FaRegImage />
+        Add {id === "photo" ? "Photo" : "Image"}
       </label>
       {loading && <p>Uploading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}

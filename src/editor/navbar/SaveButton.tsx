@@ -23,7 +23,7 @@ export const SaveButton = () => {
         title,
         photo,
         background,
-        ...rest
+        ...rest,
       });
       toast.success("Template updated successfully!");
     } catch (error) {
@@ -34,7 +34,7 @@ export const SaveButton = () => {
   return (
     <button
       onClick={handleUpdateTemplate}
-      className='bg-blue-600 text-white text-lg h-8 px-4 rounded-md'
+      className="bg-primary hover:bg-blue-900 text-white text-lg h-8 px-4 rounded-md"
     >
       Save
       <ToastContainer />
