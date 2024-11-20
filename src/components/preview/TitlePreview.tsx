@@ -1,17 +1,23 @@
-import { useStyleContext } from "../../context/StyleContext";
+import { IAppearance, useStyleContext } from "../../context/StyleContext";
 
-export const TitlePreview = ({ title }: { title: string }) => {
+export const TitlePreview = ({
+  title,
+  appearanceProp,
+}: {
+  title: string;
+  appearanceProp?: IAppearance;
+}) => {
   const { appearance } = useStyleContext();
+  let styles = appearanceProp || appearance;
   return (
     <h2
       key={title}
       style={{
-        ...appearance.titleStyle,
-        color: appearance.titleStyle.fontColor,
-        fontFamily: appearance.titleStyle.fontStyle
+        ...styles.titleStyle,
+        color: styles.titleStyle.fontColor,
+        fontFamily: styles.titleStyle.fontStyle,
       }}
-      className='block h-fit w-full my-0.5 text-center'
-      onClick={() => appearance}
+      className="block h-fit w-full my-0.5 text-center"
     >
       {title}
     </h2>

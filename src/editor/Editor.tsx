@@ -23,7 +23,7 @@ export const Editor = () => {
   return (
     <EditorProvider>
       <StyleProvider>
-        <div className="w-full h-full min-h-screen flex flex-col bg-gray-700">
+        <div className="w-full h-screen min-h-screen flex flex-col bg-gray-700">
           <div className="w-full flex items-center justify-center">
             <Navbar selected={selected} setSelected={setSelected} />
           </div>
@@ -53,7 +53,7 @@ export const Editor = () => {
               {selected === "links" && <LinkSection />}
               {selected === "appearance" && <AppearanceSection />}
             </div>
-            <div className="w-2/6 pt-2 xl:max-w-[670px] max-w-[400px]  items-center justify-center flex  border-l border-gray-300">
+            <div className="w-2/6 pt-2 xl:max-w-[670px] max-w-[400px] relative items-center justify-center flex  border-l border-gray-300">
               <Preview />
             </div>
           </div>

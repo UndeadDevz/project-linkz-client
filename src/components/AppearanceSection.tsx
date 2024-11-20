@@ -10,14 +10,14 @@ export const AppearanceSection = () => {
   const { background, addBackground } = useEditorContext();
 
   return (
-    <div className='p-2 flex flex-col gap-4 max-w-[900px] w-full relative  h-full font-nunito'>
-      <article className='bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3'>
-        <h2 className='text-lg'>Background appearence</h2>
-        <div className='flex flex-row gap-6 items-center'>
-          <label className='flex flex-row items-center gap-1'>
+    <div className="p-2 flex flex-col gap-4 max-w-[900px] w-full relative  h-full font-nunito">
+      <article className="bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3">
+        <h2 className="text-lg">Background appearence</h2>
+        <div className="flex flex-row gap-6 items-center">
+          <label className="flex flex-row items-center gap-1">
             Background Color:
             <input
-              type='color'
+              type="color"
               value={background}
               onChange={(e) => addBackground(e.target.value)}
             />
@@ -31,39 +31,34 @@ export const AppearanceSection = () => {
        *
        *
        * */}
-      <article className='bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3'>
-        <h2
-          className='text-lg'
-          onClick={() => console.log(appearance.headerStyle)}
-        >
-          Title appearence
-        </h2>
-        <div className='flex flex-row gap-6 items-center'>
-          <label className='flex flex-row items-center gap-1'>
+      <article className="bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3">
+        <h2 className="text-lg">Title appearence</h2>
+        <div className="flex flex-row gap-6 items-center">
+          <label className="flex flex-row items-center gap-1">
             Font color:
             <input
-              type='color'
+              type="color"
               value={appearance.titleStyle.fontColor}
               onChange={(e) =>
                 changeAppearance("titleStyle", "fontColor", e.target.value)
               }
             />
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Font:
-            <div className='select-container'>
-              <select className='select-custom border w-24'>
-                <option value='1'>Font 1</option>
-                <option value='2'>Font 2</option>
-                <option value='3'>Font 3</option>
+            <div className="select-container">
+              <select className="select-custom border w-24">
+                <option value="1">Font 1</option>
+                <option value="2">Font 2</option>
+                <option value="3">Font 3</option>
               </select>
             </div>
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Font Family:
-            <div className='select-container'>
+            <div className="select-container">
               <select
-                className='select-custom border w-24'
+                className="select-custom border w-24"
                 value={appearance.titleStyle.fontFamily}
                 onChange={(e) =>
                   changeAppearance("titleStyle", "fontFamily", e.target.value)
@@ -75,11 +70,11 @@ export const AppearanceSection = () => {
               </select>
             </div>
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Font weight:
-            <div className='select-container'>
+            <div className="select-container">
               <select
-                className='select-custom border w-28'
+                className="select-custom border w-28"
                 value={appearance.titleStyle.fontWeight}
                 onChange={(e) =>
                   changeAppearance("titleStyle", "fontWeight", e.target.value)
@@ -98,8 +93,8 @@ export const AppearanceSection = () => {
             </div>
           </label>
         </div>
-        <label className='flex flex-row'>
-          <div className='pr-4'>Font size</div>
+        <label className="flex flex-row">
+          <div className="pr-4">Font size</div>
           <SizeComponent
             value={appearance.titleStyle.fontSize}
             onChange={(value) =>
@@ -115,26 +110,26 @@ export const AppearanceSection = () => {
        *
        *
        * */}
-      <article className='bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3'>
+      <article className="bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3">
         <h2>Header appearence</h2>
-        <div className='flex flex-row gap-6 items-center'>
-          <label className='flex flex-row items-center gap-1'>
+        <div className="flex flex-row gap-6 items-center">
+          <label className="flex flex-row items-center gap-1">
             Font color:
             <input
-              type='color'
+              type="color"
               value={appearance.headerStyle.color}
               onChange={(e) =>
                 changeAppearance("headerStyle", "fontColor", e.target.value)
               }
             />
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Font:
-            <div className='select-container'>
-              <select className='select-custom border w-24'>
-                <option value='1'>Font 1</option>
-                <option value='2'>Font 2</option>
-                <option value='3'>Font 3</option>
+            <div className="select-container">
+              <select className="select-custom border w-24">
+                <option value="1">Font 1</option>
+                <option value="2">Font 2</option>
+                <option value="3">Font 3</option>
               </select>
             </div>
           </label>
@@ -154,11 +149,11 @@ export const AppearanceSection = () => {
               </select>
             </div>
           </label> */}
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Font weight:
-            <div className='select-container'>
+            <div className="select-container">
               <select
-                className='select-custom border w-28'
+                className="select-custom border w-28"
                 value={appearance.headerStyle.fontWeight}
                 onChange={(e) =>
                   changeAppearance("headerStyle", "fontWeight", e.target.value)
@@ -177,8 +172,8 @@ export const AppearanceSection = () => {
             </div>
           </label>
         </div>
-        <div className='flex flex-row gap-6 items-center'>
-          <label className='flex flex-row items-center gap-1'>
+        <div className="flex flex-row gap-6 items-center">
+          <label className="flex flex-row items-center gap-1">
             Font size:
             <SizeComponent
               value={appearance.headerStyle.fontSize}
@@ -205,30 +200,30 @@ export const AppearanceSection = () => {
        *
        *
        * */}
-      <article className='bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3'>
-        <h2 className='text-lg'>Link appearence</h2>
-        <div className='flex flex-row gap-6 items-center'>
-          <label className='flex flex-row items-center gap-1'>
+      <article className="bg-white rounded-xl shadow-lg p-2 flex flex-col gap-3">
+        <h2 className="text-lg">Link appearence</h2>
+        <div className="flex flex-row gap-6 items-center">
+          <label className="flex flex-row items-center gap-1">
             Background:
             <input
-              type='color'
+              type="color"
               value={appearance.linkStyle.background}
               onChange={(e) =>
                 changeAppearance("linkStyle", "background", e.target.value)
               }
             />
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Border color:
             <input
-              type='color'
+              type="color"
               value={appearance.linkStyle.borderColor}
               onChange={(e) =>
                 changeAppearance("linkStyle", "borderColor", e.target.value)
               }
             />
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Border width:
             <BorderWidth
               value={appearance.linkStyle.borderWidth}
@@ -237,7 +232,7 @@ export const AppearanceSection = () => {
               }
             />
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Border radius:
             <BorderRadiusComponent
               value={appearance.linkStyle.borderRadius}
@@ -247,32 +242,32 @@ export const AppearanceSection = () => {
             />
           </label>
         </div>
-        <div className='flex flex-row gap-6 items-center'>
-          <label className='flex flex-row items-center gap-1'>
+        <div className="flex flex-row gap-6 items-center">
+          <label className="flex flex-row items-center gap-1">
             Font color:
             <input
-              type='color'
+              type="color"
               value={appearance.linkStyle.fontColor}
               onChange={(e) =>
                 changeAppearance("linkStyle", "fontColor", e.target.value)
               }
             />
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Font family:
-            <div className='select-container'>
-              <select className='select-custom border w-24'>
-                <option value='1'>Font 1</option>
-                <option value='2'>Font 2</option>
-                <option value='3'>Font 3</option>
+            <div className="select-container">
+              <select className="select-custom border w-24">
+                <option value="1">Font 1</option>
+                <option value="2">Font 2</option>
+                <option value="3">Font 3</option>
               </select>
             </div>
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Font style:
-            <div className='select-container'>
+            <div className="select-container">
               <select
-                className='select-custom border w-24'
+                className="select-custom border w-24"
                 value={appearance.linkStyle.fontStyle}
                 onChange={(e) =>
                   changeAppearance("linkStyle", "fontStyle", e.target.value)
@@ -284,11 +279,11 @@ export const AppearanceSection = () => {
               </select>
             </div>
           </label>
-          <label className='flex flex-row items-center gap-1'>
+          <label className="flex flex-row items-center gap-1">
             Font weight:
-            <div className='select-container'>
+            <div className="select-container">
               <select
-                className='select-custom border w-28'
+                className="select-custom border w-28"
                 value={appearance.linkStyle.fontWeight}
                 onChange={(e) =>
                   changeAppearance("linkStyle", "fontWeight", e.target.value)
@@ -307,7 +302,7 @@ export const AppearanceSection = () => {
             </div>
           </label>{" "}
         </div>
-        <label className='flex flex-row items-center gap-1'>
+        <label className="flex flex-row items-center gap-1">
           Font size:
           <SizeComponent
             value={appearance.linkStyle.fontSize}

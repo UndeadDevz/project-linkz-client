@@ -25,7 +25,6 @@ const ImageUploader = ({ id }: Props) => {
   const { items, setSetItems, addPhoto } = useEditorContext();
 
   const uploadImage = async (file: File) => {
-    console.log("upload", id);
     const formData = new FormData();
 
     formData.append("image", file);
