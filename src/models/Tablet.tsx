@@ -40,20 +40,15 @@ const Tablet = (props) => {
           receiveShadow
           geometry={nodes.Object_3.geometry}
           material={materials.bottom}
-        />
+        />{" "}
+        <planeGeometry />
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Object_4.geometry}
           material={materials.screen}
         >
-          <Html
-            transform
-            rotation={[0, 0, -1.575]}
-            scale={0.15}
-            occlude
-            style={{ opacity: 1 }}
-          >
+          <Html transform rotation={[0, 0, -1.575]} scale={0.15}>
             <div className="overflow-auto scrollbar-none">
               <HeaderImage photoprop={photo} />
               <TitlePreview title={title} appearanceProp={appearance} />
